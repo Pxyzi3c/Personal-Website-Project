@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>PERSONAL BLOG WEBPAGE</title>
+        <link rel="shortcut icon" type="image/x-icon" href="imgs/my logo.png"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" type="text/css">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* ELEVATOR: BUTTON TO GO BACK TO TOP */
+            #elevator {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                position: fixed;
+                bottom: 30px;
+                right: 20px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                z-index: 5;
+                transition: all ease 200ms;
+                background: rgba(255, 255, 255, 0.795);            
+            }
+
+            #elevator:hover {
+                bottom: 35px;
+            }
+
+            #elevator p{
+                position: absolute;
+                color: white;
+                text-align: center;
+                top: -140%;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                background: rgba(0, 0, 0, 0.753);
+                padding: 5px;
+                visibility: hidden;
+                opacity: 0;
+                transition: 0.5s ease;
+                font-family: Agency FB;
+            }
+
+            #elevator:hover p {
+                visibility: visible;
+                opacity: 1;
+            }
+            #elevator img{
+                margin-top: 15px;
+                width: 25px;
+                height: 15px;
+            }
+
+            /* SIDE BAR */
+            #side-bar {
+                display: flex;
+                flex-direction: column;
+                height: 52px;
+                padding: 5px;
+                align-items: center;
+                position: fixed;
+                right: 5px;
+                top: 10px;
+                border-radius: 15px;
+                overflow: hidden;
+                transition: ease 200ms;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                z-index: 5;
+            }
+
+            #side-bar li{
+                border-radius: 10px;
+                padding: 10px;
+                list-style: none;
+                margin-bottom: 10px;
+                transition: all ease 300ms;
+                position: relative;
+            }
+
+            #side-bar ul #currentPage #tooltipText{
+                width: 150px;
+                border-bottom: 5px solid lime;
+                visibility: visible;
+                opacity: 1;
+            }
+
+            #side-bar ul #currentPage {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #side-bar:hover {
+                height: 560px;
+                background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                overflow: visible;
+            }
+
+            #side-bar #homepageIcon:hover {
+                background: none;
+                transform: scale(1.05);
+            }
+
+            #side-bar li:hover {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #tooltipText {
+                font-family: Agency FB;
+                position: absolute;
+                width: 120px;
+                right: 110%;
+                background: rgba(0, 0, 0, 0.753);
+                color: white;
+                text-align: center;
+                padding: 15px 15px;
+                border-radius: 7px;
+                transition: 0.5s ease;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                z-index: 5;
+                visibility: hidden;
+                opacity: 0;
+            }
+
+            #side-bar li:hover #tooltipText {
+                visibility: visible;
+                opacity: 1;
+            }
+
+            /* HEADER AT THE UPPER PART TOGETHER WITH THE TITLE */
+            #header-nav{
+                width: 100%;
+                height: 250px;
+                background-image: url(imgs/FILFOODBG.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                margin-bottom: 2%;
+                background-position: top;
+                animation: header-nav-Anim 15s infinite;
+                transition: all ease;
+            }
+
+            @keyframes header-nav-Anim {
+                0%{
+                    background-position: top;
+                }
+                50%{
+                    background-position: bottom;
+                }
+                100%{
+                    background-position: top;
+                }
+            }
+
+            #header-color{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                word-spacing: 4px;
+                letter-spacing: 2px;
+                font-family: Agency FB;
+            }
+
+            #header-color h1{
+                color: white;
+                font-size: 55px;
+                font-weight: 100;
+            }
+
+            #header-color div {
+                background: linear-gradient(90deg, rgb(17, 0, 167, 0.555), rgb(0, 238, 214, 0.555));
+                width: 40%;
+                animation: headerColorAnim 500ms;
+                text-align: center;
+                padding: 20px 0;
+            }
+
+            @keyframes headerColorAnim {
+                50% {
+                    transform: scale(1.1);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+
+            #header-color p{
+                color: white;
+                font-size: 25px;
+                font-weight: 100;
+            }
+
+            #header-nav #divider{
+                width: 100%;
+                height: 25px;
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                border-top: 1px white solid;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                text-decoration: none;
+                overflow: hidden;            
+            }
+
+            /* INTRODUCTORY SECTION STYLINGS*/
+            #intro {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            #intro #about-title{
+                font-family: Agency FB;
+                font-size: 55px;
+                letter-spacing: 5px;
+                width: 25%;
+                text-align: center;
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent; 
+                text-transform: uppercase;
+                margin-left: 12px;
+            }
+
+            /* NAVIGATION BAR IMAGES BELOW THE "ABOUT" CONTAINER */
+            #intro-pics{
+                width: 100%;
+                margin-top: 15px;
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                height: 225px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                overflow: hidden;
+                margin-bottom: 5%;
+            }
+
+            /* STYLINGS FOR THE "ABOUT" DIV CONTAINER */
+            #About-sec{
+                height: 170px;
+                margin-top: 0%;
+                font-family: Agency FB;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                text-align: center;
+                padding: 5px 15px 0px 15px;
+                color: black;
+                font-size: 21px;
+                box-shadow: 0px 0px 5px 1px rgb(17, 0, 167,.37) inset;
+                width: 96.5%;
+                margin: auto;
+                height: 150px;
+                transition: all ease 100ms;
+            }
+
+            #About-sec:hover {
+                transform: scale(1.03);
+            }
+
+            #Adobo-Flexbox{
+                width: 160px;
+                height: 90%;
+                background: rgba(255, 255, 255, 0.041);
+                border-radius: 15px;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.541);
+            }
+            #Adobo-Flexbox p{
+                background: transparent;
+                color: white;
+                margin-top: 5px;
+                font-family: Agency FB;
+                text-align: center;
+                letter-spacing: 2px;
+                font-size: 21px;
+                padding-bottom: 5px;
+                width: 95%;
+                margin-left: 2.5%;
+                border-bottom: 2px solid lime;
+                margin-bottom: 3%;
+            }
+            #Adobo-Flexbox div{
+                width: 95%;
+                background-image: url(imgs/Adobo.jpg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                opacity: 50%;
+                height: 75%;
+                margin-left: 2.5%;
+                border-bottom-left-radius: 15px; 
+                border-bottom-right-radius: 15px; 
+                transition: all ease 150ms;
+            }
+            #Adobo-Flexbox:hover{
+                animation: AFlexbox-Anim 500ms forwards;
+            }
+            @keyframes AFlexbox-Anim{
+                100%{
+                    transform: scale(1.1);
+                }
+            }
+
+            #Adobo-Flexbox:hover div{
+                opacity: 1;
+            }
+
+            #Sinigang-Flexbox{
+                width: 160px;
+                height: 90%;
+                background: rgba(255, 255, 255, 0.041);
+                margin-left: 5%;
+                border-radius: 15px;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.541);
+            }
+            #Sinigang-Flexbox p{
+                background: transparent;
+                color: white;
+                margin-top: 5px;
+                font-size: 21px;
+                font-family: Agency FB;
+                text-align: center;
+                letter-spacing: 2px;
+                padding-bottom: 5px;
+                width: 95%;
+                margin-left: 2.5%;
+                border-bottom: 2px solid lime;
+                margin-bottom: 3%;
+            }
+            #Sinigang-Flexbox div{
+                width: 95%;
+                background-image: url(imgs/Sinigang.jpg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                opacity: 50%;
+                height: 75%;
+                margin-left: 2.5%;
+                border-bottom-left-radius: 15px; 
+                border-bottom-right-radius: 15px; 
+                transition: all ease 150ms;
+            }
+            #Sinigang-Flexbox:hover{
+                animation: SGFlexbox-Anim 500ms forwards;
+            }
+            @keyframes SGFlexbox-Anim{
+                100%{
+                    transform: scale(1.1);
+                }
+            }
+
+            #Sinigang-Flexbox:hover div {
+                opacity: 1;
+            }
+
+            #Lumpia-Flexbox{
+                width: 160px;
+                height: 90%;
+                background: rgba(255, 255, 255, 0.041);
+                margin-left: 5%;
+                border-radius: 15px;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.541);
+            }
+            #Lumpia-Flexbox p{
+                background: transparent;
+                color: white;
+                margin-top: 5px;
+                font-family: Agency FB;
+                text-align: center;
+                letter-spacing: 2px;
+                font-size: 21px;
+                padding-bottom: 5px;
+                width: 95%;
+                margin-left: 2.5%;
+                border-bottom: 2px solid lime;
+                margin-bottom: 3%;
+            }
+            #Lumpia-Flexbox div{
+                width: 95%;
+                background-image: url(imgs/Lumpia.jpg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                opacity: 50%;
+                height: 75%;
+                margin-left: 2.5%;
+                border-bottom-left-radius: 15px; 
+                border-bottom-right-radius: 15px; 
+                transition: all ease 150ms;
+            }
+
+            #Lumpia-Flexbox:hover{
+                animation: LFlexbox-Anim 500ms forwards;
+            }
+            @keyframes LFlexbox-Anim{
+                100%{
+                    transform: scale(1.1);
+                }
+            }
+
+            #Lumpia-Flexbox:hover div {
+                opacity: 1;
+            }
+
+            #Tinola-Flexbox{
+                width: 160px;
+                height: 90%;
+                background: rgba(255, 255, 255, 0.041);
+                margin-left: 5%;
+                border-radius: 15px;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.541);
+            }
+            #Tinola-Flexbox p{
+                background: transparent;
+                color: white;
+                margin-top: 5px;
+                font-family: Agency FB;
+                text-align: center;
+                letter-spacing: 2px;
+                font-size: 21px;
+                padding-bottom: 5px;
+                width: 95%;
+                margin-left: 2.5%;
+                border-bottom: 2px solid lime;
+                margin-bottom: 3%;
+            }
+            #Tinola-Flexbox div{
+                width: 95%;
+                background-image: url(imgs/tinola.jpg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                opacity: 50%;
+                height: 75%;
+                margin-left: 2.5%;
+                border-bottom-left-radius: 15px; 
+                border-bottom-right-radius: 15px;
+                transition: all ease 150ms; 
+            }
+            #Tinola-Flexbox:hover{
+                animation: TFlexbox-Anim 500ms forwards;
+            }
+            @keyframes TFlexbox-Anim{
+                100%{
+                    transform: scale(1.1);
+                }
+            }
+
+            #Tinola-Flexbox:hover div {
+                opacity: 1;
+            }
+
+            #Sisig-Flexbox{
+                width: 160px;
+                height: 90%;
+                background: rgba(255, 255, 255, 0.041);
+                margin-left: 5%;
+                border-radius: 15px;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.541);
+            }
+            #Sisig-Flexbox p{
+                background: transparent;
+                color: white;
+                margin-top: 5px;
+                font-family: Agency FB;
+                text-align: center;
+                letter-spacing: 2px;
+                font-size: 21px;
+                padding-bottom: 5px;
+                width: 95%;
+                margin-left: 2.5%;
+                border-bottom: 2px solid lime;
+                margin-bottom: 3%;
+            }
+            #Sisig-Flexbox div{
+                width: 95%;
+                background-image: url(imgs/sisig.jpg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                opacity: 50%;
+                height: 75%;
+                margin-left: 2.5%;
+                border-bottom-left-radius: 15px; 
+                border-bottom-right-radius: 15px; 
+                transition: all ease 150ms;
+            }
+
+            #Sisig-Flexbox:hover{
+                animation: SFlexbox-Anim 500ms forwards;
+            }
+            @keyframes SFlexbox-Anim{
+                100%{
+                    transform: scale(1.1);
+                }
+            }
+
+            #Sisig-Flexbox:hover div {
+                opacity: 1;
+            }
+            
+            /* STYLINGS FOR THE CLASS MAIN-SECTION */
+            .main-section{
+                font-family: Agency FB;
+                letter-spacing: 1px;
+                color: white;
+                word-spacing: 2px;
+                margin-bottom: 2%;
+                height: 100vh;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            /* STYLINGS NAME OF EACH DISHES */
+            .main-section header{
+                font-family: Agency FB;
+                font-size: 45px;
+                letter-spacing: 5px;
+                word-spacing: 10px;
+                width: 35%;
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent; 
+                text-transform: uppercase;
+                text-align: center;
+            }
+
+            /* BACKGROUND IMAGES FORMATS */
+            #section-wrapper-adobo {
+                background-image: url(imgs/FILFOODBG1.jpg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                overflow: hidden;
+            } 
+
+            #section-wrapper-sinigang {
+                background-image: url(imgs/FILFOODBG2.jpg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                overflow: hidden;
+            } 
+
+            #section-wrapper-lumpia {
+                background-image: url(imgs/FILFOODBG3.jpg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                overflow: hidden;
+            } 
+
+            #section-wrapper-tinola {
+                background-image: url(imgs/FILFOODBG4.jpg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                overflow: hidden;
+            } 
+
+            #section-wrapper-sisig {
+                background-image: url(imgs/FILFOODBG5.jpg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                overflow: hidden;
+            } 
+
+            .main-section img{
+                height: 400px;
+                width: 400px;
+                border-radius: 50%;
+                animation: rotate 50s linear infinite;
+            }
+
+            @keyframes rotate{
+                from{
+                    transform: rotate(0deg);
+                }
+                to{
+                    transform: rotate(360deg);
+                }
+            }
+
+            /* IMAGE FORMAT OF EVERY FOODS APPLIED TO ALL LISTS TO THIS BLOG */
+            #adobo-image{
+                position: absolute;
+                height: 428px;
+                width: 428px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.582);
+                border-radius: 50%;
+            }
+
+            #sinigang-image{
+                position: absolute;
+                height: 428px;
+                width: 428px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.582);
+                border-radius: 50%;
+            }
+            #lumpia-image{
+                position: absolute;
+                height: 428px;
+                width: 428px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.582);
+                border-radius: 50%;
+            }
+
+            #tinola-image{
+                position: absolute;
+                height: 428px;
+                width: 428px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.582);
+                border-radius: 50%;
+            }
+
+            #sisig-image{
+                position: absolute;
+                height: 428px;
+                width: 428px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.582);
+                border-radius: 50%;
+            }
+
+            .section-wrapper{
+                width:90%;
+                height: 85%;
+            }
+
+            /* BACKGROUND SHADOW FOR BLUR EFFECTS */
+            .BG-shadow{
+                display: flex;
+                flex-direction: row;
+                align-items:center;
+                width:100%;
+                height: 100%;
+                background: linear-gradient(90deg, rgba(0, 238, 214, 0.39),rgba(17, 0, 167, 0.863));
+                padding: 0 25px;
+            }
+
+            /* FOR UPPER PHRASES */
+            code{
+                font-family: Agency FB;
+                background: rgba(0, 0, 0, 0.582);
+                padding: 15px 20px;
+                border-radius: 5px;
+            }
+
+            .section-contents ul li{
+                margin-left: 10%;
+            }
+
+            /* CLASSIFIED MAIN TEXTS TO ALL BLOG LIST OF MY TOP FAV PINOY DISHES */
+            .section-contents{
+                gap: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: 21px;
+                margin-left: 37%;
+                background: rgba(0, 0, 0, 0.582);
+                height: 550px;
+                width: 650px;
+                text-align: justify;
+                padding-left: 2%;
+                padding-right: 2%;
+                box-shadow: -11px 16px 45px 1px rgba(106,95,120,0.69);
+                border-radius: 25px
+            }
+
+            @media only screen and (max-width: 1151px){
+                #intro #about-title{
+                    font-size: 45px;
+                    width: 15%;
+                    text-align: center;
+                }
+                #About-sec{
+                    display: flex;
+                    gap: 15px;
+                    flex-direction: row;
+                    align-items: center;
+                    text-align: justify;
+                    width: 95%;
+                }
+            }
+
+            @media only screen and (max-width: 1302px){
+                .section-contents{
+                    margin-left: 34%;
+                    width: 600px;
+                    padding-left: 2%;
+                    padding-right: 2%;
+                }
+                #adobo-image{
+                    height: 328px;
+                    width: 328px;
+                }
+                #sinigang-image{
+                    height: 328px;
+                    width: 328px;
+                }
+                #lumpia-image{
+                    height: 328px;
+                    width: 328px;
+                }
+
+                #tinola-image{
+                    height: 328px;
+                    width: 328px;
+                }
+
+                #sisig-image{
+                    height: 328px;
+                    width: 328px;
+                }
+                .main-section img{
+                    height: 300px;
+                    width: 300px;
+                }
+                .main-section header{
+                    font-size: 45px;
+                    letter-spacing: 3px;
+                    word-spacing: 5px;
+                    width: 40%;
+                }
+            }
+
+            @media only screen and (max-width: 1138px){
+                .section-contents{
+                    margin-left: 32%;
+                    width: 600px;
+                }
+                #adobo-image{
+                    height: 280px;
+                    width: 280px;
+                }
+                #sinigang-image{
+                    height: 280px;
+                    width: 280px;
+                }
+                #lumpia-image{
+                    height: 280px;
+                    width: 280px;
+                }
+
+                #tinola-image{
+                    height: 280px;
+                    width: 280px;
+                }
+
+                #sisig-image{
+                    height: 280px;
+                    width: 280px;
+                }
+                .main-section img{
+                    height: 250px;
+                    width: 250px;
+                }
+            }
+            @media only screen and (max-width: 1106px){
+                .section-contents{
+                    margin-left: 33%;
+                    width: 550px;
+                }    
+
+                #header-color h1{
+                    font-size: 45px;
+                }
+
+                #header-color p{
+                    font-size: 20px;
+                }
+                #About-sec{
+                    font-size: 21px;
+                }
+                .BG-shadow{
+                    padding: 0 5px;
+                }
+            }
+            @media only screen and (max-width: 1000px){
+                #intro-pics{
+                   height: 180px;
+                }
+                #Adobo-Flexbox{
+                    height: 150px;
+                    width: 140px;
+                }
+                #Sinigang-Flexbox{
+                    height: 150px;
+                    width: 140px;
+                }
+                #Tinola-Flexbox{
+                    height: 150px;
+                    width: 140px;
+                }
+                #Lumpia-Flexbox{
+                    height: 150px;
+                    width: 140px;
+                }
+                #Sisig-Flexbox{
+                    height: 150px;
+                    width: 140px;
+                }
+                #Adobo-Flexbox div{
+                    height: 70%;
+                }
+                #Sisig-Flexbox div{
+                    height: 70%;
+                }
+                #Lumpia-Flexbox div{
+                    height: 70%;
+                }
+                #Tinola-Flexbox div{
+                    height: 70%;
+                }
+                #Sinigang-Flexbox div{
+                    height: 70%;
+                }
+                #intro #about-title{
+                    font-size: 35px;
+                    margin-top: 2%;
+                }
+            }
+            @media only screen and (max-width: 950px) {
+                .BG-shadow{
+                    padding: 0;
+                    flex-direction: column;
+                }
+                .section-contents{
+                    margin-top: 295px;
+                    margin-left: 0;
+                    width: 95%;
+                    height: 60%;
+                    gap: 10px;
+                    align-items: center;
+                }   
+                .section-wrapper{
+                    width:95%;
+                    height: 100%;
+                }
+                .main-section{
+                    height: 800px;
+                }
+                #adobo-image{
+                    margin-top: 10px;
+                }
+                #sinigang-image{
+                    margin-top: 10px;
+                }
+                #lumpia-image{
+                    margin-top: 10px;
+                }
+
+                #tinola-image{
+                    margin-top: 10px;
+                }
+
+                #sisig-image{
+                    margin-top: 10px;
+                }
+
+                .main-section header{
+                    width: 60%;
+                    font-size: 35px;
+                }
+
+                #header-color h1{
+                    font-size: 35px;
+                }
+            }
+            @media only screen and (max-width: 874px) {
+                #About-sec:hover {
+                    transform: none;
+                }
+                
+                #Adobo-Flexbox p{
+                    letter-spacing: 2px;
+                    font-size: 18px;
+                    padding-bottom: 1px;
+                    border-bottom: 1px solid lime;
+                }
+                #Sisig-Flexbox p{
+                    letter-spacing: 2px;
+                    font-size: 18px;
+                    padding-bottom: 1px;
+                    border-bottom: 1px solid lime;
+                }
+                #Tinola-Flexbox p{
+                    letter-spacing: 2px;
+                    font-size: 18px;
+                    padding-bottom: 1px;
+                    border-bottom: 1px solid lime;
+                }
+                #Lumpia-Flexbox p{
+                    letter-spacing: 2px;
+                    font-size: 18px;
+                    padding-bottom: 1px;
+                    border-bottom: 1px solid lime;
+                }
+                #Sinigang-Flexbox p{
+                    letter-spacing: 2px;
+                    font-size: 18px;
+                    padding-bottom: 1px;
+                    border-bottom: 1px solid lime;
+                }
+                #intro-pics{
+                   height: 140px;
+                }
+                #Adobo-Flexbox{
+                    height: 100px;
+                    width: 90px;
+                    border-radius: 5px;
+                }
+                #Sinigang-Flexbox{
+                    height: 100px;
+                    width: 90px;
+                    border-radius: 5px;
+                }
+                #Tinola-Flexbox{
+                    height: 100px;
+                    width: 90px;
+                    border-radius: 5px;
+                }
+                #Lumpia-Flexbox{
+                    height: 100px;
+                    width: 90px;
+                    border-radius: 5px;
+                }
+                #Sisig-Flexbox{
+                    height: 100px;
+                    width: 90px;
+                    border-radius: 5px;
+                }
+                #Adobo-Flexbox div{
+                    height: 65%;
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                }
+                #Sisig-Flexbox div{
+                    height: 65%;
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                }
+                #Lumpia-Flexbox div{
+                    height: 65%;
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                }
+                #Tinola-Flexbox div{
+                    height: 65%;
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                }
+                #Sinigang-Flexbox div{
+                    height: 65%;
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                }
+
+                #adobo-image{
+                    height: 230px;
+                    width: 230px;
+                }
+                #sinigang-image{
+                    height: 230px;
+                    width: 230px;
+                }
+                #lumpia-image{
+                    height: 230px;
+                    width: 230px;
+                }
+
+                #tinola-image{
+                    height: 230px;
+                    width: 230px;
+                }
+
+                #sisig-image{
+                    height: 230px;
+                    width: 230px;
+                }
+                .main-section img{
+                    height: 200px;
+                    width: 200px;
+                }
+            }
+
+            @media only screen and (max-width: 760px) {
+                .section-contents{
+                    margin-top: 250px;
+                    width: 95%;
+                    height: 70%;
+                }   
+
+                #header-nav{
+                    height: 200px;
+                }
+
+                #header-nav #divider{
+                    height: 15px;            
+                }
+
+                #header-color div {
+                    width: 60%;
+                }
+            }
+
+            @media only screen and (max-width: 684px){
+                #About-sec{
+                    height: 200px;
+                }
+
+                #side-bar {
+                    width: 45px;
+                    height: 45px;
+                    padding: 0;
+                    right: 15px;
+                    border-radius: 5px;
+                }
+
+                #side-bar li{
+                    transform: scale(0.6);
+                    margin: 0;
+                }
+
+                #side-bar:hover {
+                    height: 500px;
+                    background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                }
+
+                #side-bar #homepageIcon:hover {
+                    transform: scale(0.6);
+                }
+
+                #side-bar li:hover {
+                    background: rgba(9, 0, 94, 0.589);
+                }
+
+                #tooltipText {
+                    width: 150px;
+                    right: 130%;
+                    font-size: 25px;
+                }
+            }
+
+            @media only screen and (max-width: 566px) {
+                #About-sec{
+                    height: 210px;
+                    padding: 10px;
+                    flex-direction: column;
+                    gap: 7px;
+                }
+
+                #header-color h1{
+                    font-size: 30px;
+                }
+
+                #header-color p{
+                    font-size: 20px;
+                }
+
+                #intro #about-title{
+                    font-size: 27px;
+                    margin-top: 3%;
+                    margin-bottom: 2%;
+                }
+
+                #Adobo-Flexbox{
+                    height: 87px;
+                    width: 70px;
+                    border-radius: 5px;
+                }
+                #Sinigang-Flexbox{
+                    height: 87px;
+                    width: 70px;
+                    border-radius: 5px;
+                }
+                #Tinola-Flexbox{
+                    height: 87px;
+                    width: 70px;
+                    border-radius: 5px;
+                }
+                #Lumpia-Flexbox{
+                    height: 87px;
+                    width: 70px;
+                    border-radius: 5px;
+                }
+                #Sisig-Flexbox{
+                    height: 87px;
+                    width: 70px;
+                    border-radius: 5px;
+                }
+                #Adobo-Flexbox div{
+                    height: 60%;
+                }
+                #Sisig-Flexbox div{
+                    height: 60%;
+                }
+                #Lumpia-Flexbox div{
+                    height: 60%;
+                }
+                #Tinola-Flexbox div{
+                    height: 60%;
+                }
+                #Sinigang-Flexbox div{
+                    height: 60%;
+                }
+
+                .main-section header{
+                    font-size: 27px;
+                }
+            }
+
+            @media only screen and (max-width: 542px) {
+                #About-sec{
+                    height: 230px;
+                }
+
+                .section-contents{
+                    margin-top: 220px;
+                    width: 95%;
+                    height: 80%;
+                }  
+
+                #adobo-image{
+                    height: 200px;
+                    width: 200px;
+                }
+                #sinigang-image{
+                    height: 200px;
+                    width: 200px;
+                }
+                #lumpia-image{
+                    height: 200px;
+                    width: 200px;
+                }
+
+                #tinola-image{
+                    height: 200px;
+                    width: 200px;
+                }
+
+                #sisig-image{
+                    height: 200px;
+                    width: 200px;
+                }
+                .main-section img{
+                    height: 180px;
+                    width: 180px;
+                }
+            }
+
+            @media only screen and (max-width: 480px) {
+                #header-color div {
+                    width: 80%;
+                }
+
+                #About-sec{
+                    height: 260px;
+                }
+
+                #intro #about-title{
+                    width: 20%;
+                }
+
+                #Adobo-Flexbox{
+                    height: 80px;
+                    width: 64px;
+                }
+                #Sinigang-Flexbox{
+                    height: 80px;
+                    width: 64px;
+                }
+                #Tinola-Flexbox{
+                    height: 80px;
+                    width: 64px;
+                }
+                #Lumpia-Flexbox{
+                    height: 80px;
+                    width: 64px;
+                }
+                #Sisig-Flexbox{
+                    height: 80px;
+                    width: 64px;
+                }
+
+                .main-section{
+                    height: 900px;
+                }
+            }
+
+            @media only screen and (max-width: 402px){
+                #About-sec{
+                    height: 300px;
+                }
+
+                #Adobo-Flexbox{
+                    height: 75px;
+                    width: 60px;
+                }
+                #Sinigang-Flexbox{
+                    height: 75px;
+                    width: 60px;
+                }
+                #Tinola-Flexbox{
+                    height: 75px;
+                    width: 60px;
+                }
+                #Lumpia-Flexbox{
+                    height: 75px;
+                    width: 60px;
+                }
+                #Sisig-Flexbox{
+                    height: 75px;
+                    width: 60px;
+                }
+                #intro-pics{
+                    height: 110px;
+                }
+            }
+        </style>
+    </head>
+
+    <body id="body">
+    
+    <!--SIDE NAVBAR-->
+    <nav id="side-bar">
+        <ul>
+            <li style="background: rgba(255, 255, 255, 0.795);">
+                <img src="imgs/listicon.png" alt="">
+            </li>
+            <li id="homepageIcon">
+                <span id="tooltipText">RETURN TO MAIN MENU</span>
+                <a href="0 MAIN LANDING PAGE.html"><img src="imgs/HOMEPAGEICON.png" alt=""></a>
+            </li>
+            <li id="currentPage">
+                <span id="tooltipText">PERSONAL WEB BLOG</span>
+                <a href="01 PERSONAL BLOG WEBPAGE.html"><img src="imgs/BLOGICON.png" alt=""></a>
+            </li>
+            <li>
+                <span id="tooltipText">CLASS SCHEDULE</span>
+                <a href="02 CLASS SCHEDULE WEBPAGE.HTML"><img src="imgs/SCHEDICON.png" alt=""></a>
+            </li>
+            <li>
+                <span id="tooltipText">INSPIRATIONAL QUOTES</span>
+                <a href="03 INSPIRATIONAL QUOTES WEBPAGE.html"><img src="imgs/QUOTESICON.png" alt=""></a>
+            </li>
+            <li>
+                <span id="tooltipText">FAVORITE APPS</span>
+                <a href="04 FAVORITE APPLICATIONS WEBPAGE.html"><img src="imgs/APPICON.png" alt=""></a>
+            </li>
+            <li>
+                <span id="tooltipText">FAVORITE SONGS</span>
+                <a href="05 FAVORITE SONGS WEBPAGE.HTML"><img src="imgs/MUSICICON.png" alt=""></a>
+            </li>
+            <li>
+                <span id="tooltipText">PHOTO GALLERY</span>
+                <a href="06 MY PHOTO GALLERY.html"><img src="imgs/GALLERYICON.png" alt=""></a>
+            </li>
+            
+        </ul>
+    </nav>
+
+    <!--BUTTON TO GO BACK TO TOP-->
+    <div id="elevator">
+        <p>RETURN TO TOP</p>
+        <a href="#body">
+            <img src="imgs/arrow.png" alt="">
+        </a>
+    </div>
+
+    <!--TITLE HEADER-->
+    <header id="header-nav">
+        <div id="header-color">
+            <div>
+                <h1>PERSONAL BLOG WEBPAGE</h1>
+                <p>MY TOP FAVORITE FILIPINO FOODS</p>
+            </div>
+        </div>
+        <div id="divider">
+        </div>
+    </header>
+
+    <!--MAIN CONTENTS-->
+    <main id="main-doc">
+        <!--INTRODUCTORY SECTION-->
+        <section id="intro">
+        <p id="about-title">About</p>
+            <!--DESCRIPTION ABOUT THE CONTENT OF THE WEBPAGE-->
+            <div id="About-sec">
+                <p>In this personal blog webpage activity, I want to talk about my favorite Filipino foods. I decided to choose this content because I love foods and so here, I want to share what I think about my favorite Fillipino foods.</p><br>
+                <p>Filipino food is a mix of Asian and Western influences transformed through local cooking techniques. Boasting proud indigenous flavors, rich traditions and eating practices unique to the country, Filipino cuisine is distinct, delicious and unlike anything you'll have tasted elsewhere.</p>
+            </div>
+            <!--NAVIGATION BUTTONS-->
+            <div id="intro-pics">
+                <div id="Adobo-Flexbox">
+                    <p>ADOBO</p>
+                    <a href="#Adobo"><div></div></a>
+                </div>
+                <div id="Sinigang-Flexbox">
+                    <p>SINIGANG</p>
+                    <a href="#Sinigang"><div></div></a>
+                </div>
+                <div id="Lumpia-Flexbox">
+                    <p>LUMPIA</p>
+                    <a href="#Lumpiang_Shanghai"><div></div></a>
+                </div>
+                <div id="Tinola-Flexbox">
+                    <p>TINOLA</p>
+                    <a href="#Tinolang_Manok"><div></div></a>
+                </div>
+                <div id="Sisig-Flexbox">
+                    <p>SISIG</p>
+                    <a href="#Pork_Sisig"><div></div></a>
+                </div>
+            </div><br><br><br><br><br>
+        </section>
+
+        <!--CHICKEN ADOBO SECTION-->
+        <section class="main-section" id="Adobo">
+        <header>Chicken Adobo</header>
+        <div class="section-wrapper" id="section-wrapper-adobo">
+        <div class="BG-shadow">
+            <!--DISH IMAGE-->
+            <div id="adobo-image">
+                <img src="imgs/Adobo.jpg" title="Chicken adobo image">
+            </div>
+            <!--SECTION CONTENTS-->
+            <div class="section-contents">
+                <p>
+                    <code>"Hello Adobo!"</code>
+                </p>
+                <p>
+                    <ul>
+                        <p>Of course! Your Filipino favorites will not be completed without the famous Adobo. Everyone in the country has their own version of it but my favorite is the Chicken Adobo. I love it best when my mom uses Mang Tomas sauce as replacement to soy sauce. It adds a little sweetness to it, and I love sweet foods. <br><br>Just a little information for those who didn't know, Chicken Adobo is a Filipino dish made by braising chicken legs (thighs and/or drumsticks) in a sauce made up of vinegar, soy sauce, garlic, and black pepper. It's tangy, salty, garlicy, slightly sweet, and spicy. The chicken is slowly simmered in the sauce making it flavorful and incredibly tender.</p>
+                        <p>Main Ingredients:</p>
+                            <ul>
+                                <li>Chicken</li>
+                                <li>Soy sauce</li>
+                                <li>Vinegar</li>
+                                <li>Black pepper</li>
+                            </ul>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        </div>
+            <br>
+        </section>
+            
+        <!--SINIGANG SECTION-->
+        <section class="main-section" id="Sinigang">
+        <header>Sinigang na Bangus</header>
+        <div class="section-wrapper" id="section-wrapper-sinigang">
+        <div class="BG-shadow">
+            <!--DISH IMAGE-->
+            <div id="sinigang-image">
+                <img src="imgs/Sinigang.jpg" title="Sinigang na bangus image">
+            </div>
+            <!--SECTION CONTENTS-->
+            <div class="section-contents">
+                <p>
+                    <code>"Asim Kilig!"</code>
+                </p>
+                <p>
+                    <ul>
+                        <p>Sinigang na Bangus is a type of sour clear broth fish soup. You can really enjoy the fresh taste of the fish complemented by the warm sour broth. If you are trying to learn how to cook, this dish is a perfect choice to start with.<br><br>Most say that this is the most authentic representation of Filipino cuisine. What I love in this dish is its sour soup, which everyone can enjoy especially during rainy seasons.</p>
+                        <p>Main Ingredients:</p>
+                            <ul>
+                                <li>Bangus</li>
+                                <li>Siling haba</li>
+                                <li>Vinegar(or any other sour-tasting products)</li>
+                                <li>Tomato</li>
+                            </ul>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        </div>
+            <br>
+        </section>
+        
+        <!--LUMPIANG SHANGHAI SECTION-->
+        <section class="main-section" id="Lumpiang_Shanghai">
+        <header>Lumpiang Shanghai</header>
+        <div class="section-wrapper" id="section-wrapper-lumpia">
+        <div class="BG-shadow">
+            <!--DISH IMAGE-->
+            <div id="lumpia-image">
+                <img src="imgs/Lumpia.jpg" title="Lumpiang shanghai image">
+            </div>
+            <!--SECTION CONTENTS-->
+            <div class="section-contents">
+                <p>
+                    <code>"Hmmm, perfection!"</code>
+                </p>
+                <p>
+                    <ul>
+                        <p>Lumpiang Shanghai is undeniably the all time favorite Filipino food. It is always present in almost all Filipino celebration and fiestas, and everyone, including me, always looks for it. In fact, it is slowly becoming a meme in social media in a way that if it's not present in a celebration, don't bother to invite me. I myself, also consider Lumpiang Shanghai as my favorite Filipino food. <br><br>So for those who didn't know, here's a quick facts again. Lumpiang Shanghai is a Filipino-style spring roll made of ground pork, chicken or beef filling wrapped in thin crepes called lumpia wrappers. The meat-stuffed lumpia is rolled into a thin cylindrical shape, cut into bite-size lengths and deep-fried to golden perfection.</p>
+                        <p>Main Ingredients:</p>
+                            <ul>
+                                <li>Lumpia wrappers</li>
+                                <li>Ground pork</li>
+                                <li>Minced onions and carrots</li>
+                                <li>Seasonings such as salt and ground bell pepper</li>
+                            </ul>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        </div>
+            <br>
+        </section>
+
+        <!--CHICKEN TINOLA SECTION-->
+        <section class="main-section" id="Tinolang_Manok">
+        <header>Chicken Tinola</header>
+        <div class="section-wrapper" id="section-wrapper-tinola">
+        <div class="BG-shadow">
+            <!--DISH IMAGE-->
+            <div id="tinola-image">
+                <img src="imgs/tinola.jpg" title="Tinolang manok image">
+            </div>
+            <!--SECTION CONTENTS-->
+            <div class="section-contents">
+                <p>
+                    <code>"Wow sabaw!"</code>
+                </p>
+                <p>
+                    <ul>
+                        <p>Aside from Sinigang, Chicken Tinola is also my all time favorite Filipino soups. Its leafy components is what I like the most about it. Tinola is also a flexible dish since you can choose any vegetables to combo with it and will always works. My favorite one is the Malungay leaves. <br><br>Classic Tinolang Manok is a healthy Filipino chicken soup dish with vegetables. This dish has a clear broth and includes moringa (malunggay), chayote, green papaya, hot pepper leaves, and ginger as part of the ingredients. Tinolang Manok is also known as chicken tinola.</p>
+                        <p>Main Ingredients:</p>
+                            <ul>
+                                <li>Chicken parts(mainly legs)</li>
+                                <li>Green papaya or chayote</li>
+                                <li>Hot pepper leaves</li>
+                                <li>Ginger</li>
+                            </ul>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        </div>
+            <br>
+        </section>
+        
+        <!--PORK SISIG SECTION-->
+        <section class="main-section" id="Pork_Sisig">
+        <header>Pork Sisig</header>
+        <div class="section-wrapper" id="section-wrapper-sisig">
+        <div class="BG-shadow">
+            <!--DISH IMAGE-->
+            <div id="sisig-image">
+                <img src="imgs/sisig.jpg" title="Pork sisig image">
+            </div>
+            <!--SECTION CONTENTS-->
+            <div class="section-contents">
+                <p>
+                    <code>"Sisig for the win!"</code>
+                </p>
+                <p>
+                    <ul>
+                        <p>Oh yes, sisig! What I love about this dish is its crispyness and flexibility. Everyone can enjoy this delicious dish no matter wha tradition you have. From pork, chicken, or to fish, you can still enjoy the flavor of the Filipino sisig. My favorite and also the mojority, is the Pork Sisig. I think how this dish was made was so creative. It has the balance of crispyness, sweetness, and spicyness.<br><br>A quick information Pork Sisig is a Filipino food made from minced pork. This Sisig Recipe makes use of minced pigs ears and meat (pork belly). Sisig originated in Pampanga, a place a few kilometers North of Manila. Aside from using ears and belly, the pig's face (also called mascara) is used to make sisig.</p>
+                        <p>Main Ingredients:</p>
+                            <ul>
+                                <li>Pig parts</li>
+                                <li>Onions</li>
+                                <li>Chili</li>
+                                <li>Fried egg</li>
+                            </ul>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        </div>
+            <br>
+        </section>    
+    </main>
+    
+    <!--Bootstrap Link-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!--APlayer Jquery Link-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+    </body>
+</html>

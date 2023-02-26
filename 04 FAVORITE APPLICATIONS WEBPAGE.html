@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>MY FAVORITE APPLICATIONS</title>
+        <!--IMAGE FOR THE WEBPAGE TITLE-->
+        <link rel="shortcut icon" type="image/x-icon" href="imgs/my logo.png"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+
+            /* ELEVATOR: BUTTON TO GO BACK TO TOP */
+            #elevator {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                position: fixed;
+                bottom: 30px;
+                right: 20px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                z-index: 5;
+                transition: all ease 200ms;
+                background: rgba(255, 255, 255, 0.795);            
+            }
+
+            #elevator:hover {
+                bottom: 35px;
+            }
+
+            #elevator p{
+                position: absolute;
+                color: white;
+                text-align: center;
+                top: -140%;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                background: rgba(0, 0, 0, 0.753);
+                padding: 5px;
+                visibility: hidden;
+                opacity: 0;
+                transition: 0.5s ease;
+                font-family: Agency FB;
+            }
+
+            #elevator:hover p {
+                visibility: visible;
+                opacity: 1;
+            }
+            #elevator img{
+                margin-top: 15px;
+                width: 25px;
+                height: 15px;
+            }
+
+            /* SIDE BAR */
+            #side-bar {
+                display: flex;
+                flex-direction: column;
+                height: 52px;
+                padding: 5px;
+                align-items: center;
+                position: fixed;
+                right: 5px;
+                top: 10px;
+                border-radius: 15px;
+                overflow: hidden;
+                transition: ease 200ms;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                z-index: 10;
+            }
+
+            #side-bar li{
+                border-radius: 10px;
+                padding: 10px;
+                list-style: none;
+                margin-bottom: 10px;
+                transition: all ease 300ms;
+                position: relative;
+            }
+
+            #side-bar ul #currentPage #tooltipText{
+                width: 150px;
+                border-bottom: 5px solid lime;
+                visibility: visible;
+                opacity: 1;
+            }
+
+            #side-bar ul #currentPage {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #side-bar:hover {
+                height: 560px;
+                background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                overflow: visible;
+            }
+
+            #side-bar #homepageIcon:hover {
+                background: none;
+                transform: scale(1.05);
+            }
+
+            #side-bar li:hover {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #tooltipText {
+                font-family: Agency FB;
+                position: absolute;
+                width: 120px;
+                right: 110%;
+                background: rgba(0, 0, 0, 0.753);
+                color: white;
+                text-align: center;
+                padding: 15px 15px;
+                border-radius: 7px;
+                transition: 0.5s ease;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                z-index: 5;
+                visibility: hidden;
+                opacity: 0;
+            }
+
+            #side-bar li:hover #tooltipText {
+                visibility: visible;
+                opacity: 1;
+            }
+
+            /* STYLINGS FOR THE MAIN DIV CONTAINER*/
+            #container{
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(92, 92, 92));
+                width: 100%;
+                height: 2000px;
+                margin: auto;
+            }
+
+            /* WEBPAGE CONTENT TITLE STYLING */
+            #title{
+                height: 100px;
+                width: 100%;
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                box-shadow: 0px 10px 23px 3px rgba(0,0,0,0.85);           
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-family: Agency FB;
+                letter-spacing: 3px;
+                word-spacing: 6px;
+                font-size: 30px;
+                position: fixed;
+                z-index: 5;
+            }
+
+            /* MAIN CONTENTS STYLING */
+            #main-contents{
+                width: 90%;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.616);
+                display: flex;
+                flex-direction: row;
+                margin: auto;
+                padding-top: 12%;
+                justify-content: center;
+                gap: 7%;
+                flex-wrap: wrap;
+                overflow: hidden;
+            }
+
+            /* APP BOXES FORMAT STYLINGS */
+            #app-box{
+                display: flex;
+                flex-direction: column;
+                height: 400px;
+                width: 500px;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.616);
+                margin-bottom: 10%;
+                border-radius: 50px;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-family: Agency FB;
+                letter-spacing: 2px;
+                word-spacing: 4px;
+                text-align: center;
+                padding: 0 2%;
+            }
+
+            #app-box:hover{
+                animation: appboxAnim 200ms forwards;
+            }
+
+            @keyframes appboxAnim{
+                100%{
+                    transform: scale(1.01);
+                    background: rgba(0, 0, 0, 0.123);
+                }
+            }
+
+            /* "READ MORE..." BUTTON STYLINGS FOR EVERY APPS */
+            #app-box a{
+                text-decoration: none;
+                color: white;
+                letter-spacing: 2px;
+                word-spacing: 4px;
+                font-size: 21px;
+                padding: 5px 10%;
+                background: lime;
+                border-radius: 18px;
+                margin-top: 5%;
+                box-shadow: -2px 5px 10px 2px rgba(0, 0, 0, 0.425);
+            }
+
+            #app-box a:hover{
+                animation: appbutAnim 100ms forwards;
+            }
+
+            @keyframes appbutAnim{
+                100%{
+                    transform: scale(1.05);
+                    background: rgb(0, 161, 0);
+                }
+            }
+
+            /* APP NAME TEXT FORMAT */
+            .app-name{
+                font-size: 25px;
+                margin-top: 3%;
+            }
+
+            /* APP DESCRIPTION TEXTS FORMAT */
+            .app-des{
+                font-size: 21px;
+                margin-top: 3%;
+            }
+
+            #app-box img{
+                width: 150px;
+                animation: appBoxImgs 400ms forwards;
+                transition: all ease;
+                animation-delay: 800ms;
+            }
+
+            @keyframes appBoxImgs{
+                0%{
+                    transform: scale(.8);
+                }
+                50%{
+                    transform: scale(1.2);
+                }
+                100%{
+                    transform: scale(1);
+                }
+            }
+
+            /* APP LIST COLUMNS STYLINGS */
+            #column1{
+                display: flex;
+                flex-direction: column;
+            }
+
+            #column2{
+                display: flex;
+                flex-direction: column;
+            }
+
+            footer{
+                width: 100%;
+                height: 60px;
+                background: rgb(17, 0, 167);
+                color: white;
+                font-family: Agency FB;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                letter-spacing: 2px;
+                word-spacing: 4px;
+                font-size: 20px;
+            }
+
+            @media only screen and (max-width: 1000px){
+                #container{
+                    height: 3850px;
+                }
+
+                #main-contents{
+                    padding-top: 15%;
+                }
+
+                #title{
+                    font-size: 20px;
+                }
+            }
+
+            @media only screen and (max-width: 750px){
+                #container{
+                    height: 3800px;
+                }
+
+                #main-contents{
+                    padding-top: 20%;
+                }
+
+                #title{
+                    font-size: 16px;
+                }
+            }
+
+            @media only screen and (max-width: 628px){
+                #container{
+                    height: 3700px;
+                }
+
+                #main-contents{
+                    padding-top: 25%;
+
+                }
+
+                #title{
+                    font-size: 13px;
+                }
+
+                #app-box{
+                    min-height: 250px;
+                    width: 350px;
+                }
+
+                footer{
+                    min-height: 100px;
+                }
+            }
+
+            @media only screen and (max-width: 684px){
+                #side-bar {
+                    width: 45px;
+                    height: 45px;
+                    padding: 0;
+                    right: 15px;
+                    border-radius: 5px;
+                }
+
+                #side-bar li{
+                    transform: scale(0.6);
+                    margin: 0;
+                }
+
+                #side-bar:hover {
+                    height: 500px;
+                    background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                }
+
+                #side-bar #homepageIcon:hover {
+                    transform: scale(0.6);
+                }
+
+                #side-bar li:hover {
+                    background: rgba(9, 0, 94, 0.589);
+                }
+
+                #tooltipText {
+                    width: 150px;
+                    right: 130%;
+                    font-size: 25px;
+                }
+            }
+
+            @media only screen and (max-width: 500px){
+                #app-box{
+                    min-height: 120px;
+                    width: 300px;
+                }
+
+                #app-box img{
+                    width: 120px;
+                }
+
+                .app-name{
+                    letter-spacing: 1px;
+                    word-spacing: 2px;
+                    font-size: 23px;
+                    margin-top: 3%;
+                }
+
+                .app-des{
+                    letter-spacing: 1px;
+                    word-spacing: 2px;
+                    font-size: 18px;
+                    margin-top: 3%;
+                }
+
+                #app-box a{
+                    letter-spacing: 1px;
+                    word-spacing: 2px;
+                    font-size: 18px;
+                    padding: 5px 10%;
+                    background: lime;
+                }
+
+                #main-contents{
+                    padding-top: 35%;
+
+                }
+            }
+        </style>
+    </head>
+
+    <body id="body">
+        <!--SIDE BAR-->
+        <nav id="side-bar">
+            <ul>
+                <li style="background: rgba(255, 255, 255, 0.795);">
+                    <img src="imgs/listicon.png" alt="">
+                </li>
+                <li id="homepageIcon">
+                    <span id="tooltipText">RETURN TO MAIN MENU</span>
+                    <a href="0 MAIN LANDING PAGE.html"><img src="imgs/HOMEPAGEICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">PERSONAL WEB BLOG</span>
+                    <a href="01 PERSONAL BLOG WEBPAGE.html"><img src="imgs/BLOGICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">CLASS SCHEDULE</span>
+                    <a href="02 CLASS SCHEDULE WEBPAGE.HTML"><img src="imgs/SCHEDICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">INSPIRATIONAL QUOTES</span>
+                    <a href="03 INSPIRATIONAL QUOTES WEBPAGE.html"><img src="imgs/QUOTESICON.png" alt=""></a>
+                </li>
+                <li id="currentPage">
+                    <span id="tooltipText">FAVORITE APPS</span>
+                    <a href="04 FAVORITE APPLICATIONS WEBPAGE.html"><img src="imgs/APPICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">FAVORITE SONGS</span>
+                    <a href="05 FAVORITE SONGS WEBPAGE.HTML"><img src="imgs/MUSICICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">PHOTO GALLERY</span>
+                    <a href="06 MY PHOTO GALLERY.html"><img src="imgs/GALLERYICON.png" alt=""></a>
+                </li>
+                
+            </ul>
+        </nav>
+
+        <!--ARROW ELEVATING BUTTON TO GO BACK TO THE TOP-->
+        <div id="elevator">
+            <p>RETURN TO TOP</p>
+            <a href="#body">
+                <img src="imgs/arrow.png" alt="">
+            </a>
+        </div>
+
+        <!--MAIN DIV CONTAINER CONTAINING THE MAIN CONTENTS OF THE WEBPAGE-->
+        <div id="container">
+            <!--WEBPAGE CONTENT TITLE-->
+            <div id="title">
+                <h1>MY FAVORITE APPLICATIONS</h1>
+            </div>
+
+            <!--MAIN CONTENTS DIV CONTAINER-->
+            <div id="main-contents">
+                <!--SUB DIV CONTAINER 1: COLUMN 1-->
+                <div id="column1">
+                    <!--BOXES PER APP-->
+                    <div id="app-box">
+                        <img src="imgs/FBLOGO.png" alt="FACEBOOK LOGO">
+                        <div class="texts">
+                            <p class="app-name">FACEBOOK</p>
+                            <p class="app-des">I enjoy using this application especially during my vacant time. I usually use Facebook to get latest updates to almost everything that is essential and get entertained.</p>
+                        </div>
+                        <a href="https://www.webwise.ie/parents/explained-what-is-facebook-2/" target="_blank">READ MORE ABOUT FACEBOOK</a>
+                    </div>
+                    <div id="app-box">
+                        <img src="imgs/GITHUBLOGO.png" alt="GITHUB LOGO" style="width: 90px">
+                        <div class="texts">
+                            <p class="app-name">GITHUB</p>
+                            <p class="app-des">As an IT student, having a platform that will guide me really is essential in surviving every task that was given to me. That's what I love with Github.</p>
+                        </div>
+                        <a href="https://en.wikipedia.org/wiki/GitHub" target="_blank">READ MORE ABOUT GITHUB</a>
+                    </div>
+                    <div id="app-box">
+                        <img src="imgs/YOUTUBELOGO.png" alt="YOUTUBE LOGO" style="width: 100px">
+                        <div class="texts">
+                            <p class="app-name">YOUTUBE</p>
+                            <p class="app-des">Whenever I don't have nothing to do, Youtube is always the first application I will open. I enjoy watching videos as a hobby, may it be news, anime, or latest uploads from my favorite youtubers.</p>
+                        </div>
+                        <a href="https://en.wikipedia.org/wiki/YouTube" target="_blank">READ MORE ABOUT YOUTUBE</a>
+                    </div>
+                    <div id="app-box">
+                        <img src="imgs/ONEDRIVELOGO.png" alt="ONEDRIVE LOGO" style="width: 100px">
+                        <div class="texts">
+                            <p class="app-name">MS ONEDRIVE</p>
+                            <p class="app-des">I don't actually care that much about the importance of storage before I got to college. Cloud storage is advantageous because you can access and store your file anywhere and anytime as long as you have an internet.</p>
+                        </div>
+                        <a href="https://support.microsoft.com/en-us/office/what-is-onedrive-for-work-or-school-187f90af-056f-47c0-9656-cc0ddca7fdc2" target="_blank">READ MORE ABOUT ONEDRIVE</a>
+                    </div>
+                </div>
+
+                <!--SUB DIV CONTAINER 2: COLUMN 2-->
+                <div id="column2">
+                    <!--BOXES PER APP-->
+                    <div id="app-box">
+                        <img src="imgs/MESSENGERLOGO.png" alt="MESSENGER LOGO" style="width: 90px">
+                        <div class="texts">
+                            <p class="app-name">MESSENGER</p>
+                            <p class="app-des">Messenger helps me to connect with my loved ones. This application became a vital part of my life as a student as it provides platform that can organize large amounts of contacts. </p>
+                        </div>
+                        <a href="https://en.wikipedia.org/wiki/Messenger_(software)" target="_blank">READ MORE ABOUT MESSENGER</a>
+                    </div>
+                    <div id="app-box">
+                        <img src="imgs/MUZIOLOGO.PNG" alt="MUZIO LOGO" style="width: 75px">
+                        <div class="texts">
+                            <p class="app-name">MUZIO PLAYER</p>
+                            <p class="app-des">Music of course! I love organizing things especially when it comes to the things that I really care and love. I chose to download this app because I enjoy the graphics. It is not boring to use unlike other music player applications.</p>
+                        </div>
+                        <a href="http://muzioplayer.com/" target="_blank">READ MORE ABOUT MUZIO PLAYER</a>
+                    </div>
+                    <div id="app-box">
+                        <img src="imgs/DICTIONARYLOGO.png" alt="MERIAM-WEBSTER DICTIONARY LOGO" style="width: 90px">
+                        <div class="texts">
+                            <p class="app-name">MERIAM-WEBSTER DICTIONARY</p>
+                            <p class="app-des">This app is one of my favorite because it had helped me many times. I also love diccovering new words to expand my vocabulary.</p>
+                        </div>
+                        <a href="https://www.merriam-webster.com/" target="_blank">READ MORE ABOUT MERIAM-WEBSTER</a>
+                    </div>
+                    <div id="app-box">
+                        <img src="imgs/GARENALOGO.png" alt="GARENA LOGO" style="width: 180px">
+                        <div class="texts">
+                            <p class="app-name">GARENA</p>
+                            <p class="app-des">Just like many of IT professional aspirants, I think that my interest in programming started in computer gaming. Garena's League of Legends is really the game that tested me in many aspects of my personality.</p>
+                        </div>
+                        <a href="https://www.garena.sg/" target="_blank">READ MORE ABOUT GARENA</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--Bootstrap Link-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!--APlayer Jquery Link-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+    </body>
+
+    <footer>
+        <p style="padding: 0 10% 2px 10%; font-weight: bold;">Integrative in Programming and Technologies</p>
+        <div style="display: flex; flex-direction: row; width: 50%; justify-content: center;">
+            <p style="padding-right: 5%">Harvy Jones Pontillas</p>
+            <p>DICT 2-2</p>
+        </div>
+    </footer>
+</html>

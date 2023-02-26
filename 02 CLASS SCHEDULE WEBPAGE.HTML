@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CLASS SCHEDULE</title>
+        <link rel="shortcut icon" type="image/x-icon" href="imgs/my logo.png"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" type="text/css">
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+            }
+
+            /* NAVIGATION SIDE BAR */
+            #side-bar {
+                display: flex;
+                flex-direction: column;
+                height: 52px;
+                padding: 5px;
+                align-items: center;
+                position: fixed;
+                right: 5px;
+                top: 10px;
+                border-radius: 15px;
+                overflow: hidden;
+                transition: ease 200ms;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                z-index: 5;
+            }
+            #side-bar li{
+                border-radius: 10px;
+                padding: 10px;
+                list-style: none;
+                margin-bottom: 10px;
+                transition: all ease 300ms;
+                position: relative;
+            }
+
+            #side-bar ul #currentPage #tooltipText{
+                width: 150px;
+                border-bottom: 5px solid lime;
+                visibility: visible;
+                opacity: 1;
+            }
+
+            #side-bar ul #currentPage {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #side-bar:hover {
+                height: 560px;
+                background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                overflow: visible;
+            }
+
+            #side-bar #homepageIcon:hover {
+                background: none;
+                transform: scale(1.05);
+            }
+
+            #side-bar li:hover {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #tooltipText {
+                font-family: Agency FB;
+                position: absolute;
+                width: 120px;
+                right: 110%;
+                background: rgba(0, 0, 0, 0.753);
+                color: white;
+                text-align: center;
+                padding: 15px 15px;
+                border-radius: 7px;
+                transition: 0.5s ease;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                z-index: 5;
+                visibility: hidden;
+                opacity: 0;
+            }
+
+            #side-bar li:hover #tooltipText {
+                visibility: visible;
+                opacity: 1;
+            }
+
+            /* HEADER: WEBPAGE TITLES*/
+            header{
+                font-family: Agency FB;
+                letter-spacing: 4px;
+                word-spacing: 8px;
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                box-shadow: 0px 1px 26px 3px rgba(0,0,0,0.85);  
+                position: fixed;
+                width: 100%;
+                height: 150px;
+                top: 0;
+            }
+
+            header h1{
+                text-align: center;
+                background: white;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 50px;
+            }
+
+            header h3{
+                text-align: center;
+                color: white;
+                font-size: 1.7em;
+            }
+
+            /* HEADER ID: NAMES AND STUDENT NUMBER*/
+            #header-id{
+                width: 100%;
+                height: 50px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-evenly;
+                font-family: Agency FB;
+                font-size: 1.2em;
+            }
+
+            #header-id #name{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            #header-id #studnum{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            /* STYLE FOR WHOLE THE TIME SCHEDULE TABLE: SCHED-TABLE*/
+            .sched-table{
+                margin: auto;
+                margin-top: 15%;
+                background:white;
+                color: black;
+                padding: 1%;
+                min-height: 100%;
+                max-width: 90%;
+                font-family:Agency FB;
+                font-size: 15px;
+                border-collapse: collapse;
+                text-align: center;
+                border-radius: 25px 25px 0 0;
+                overflow: hidden;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.541);
+            }
+
+            /* THEAD STYLE OF THE TABLE */
+            .sched-table thead{
+                color: white;
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                letter-spacing: 2px;
+                font-size: 25px;
+                border-bottom: 5px solid white;
+            }
+
+            .sched-table thead th{
+                padding: 15px 15px;
+            }
+
+            /* TBODY STYLE OF THE TABLE, WHICH CONTAINS THE MAIN CONTENT OF THE TABLE */
+            .sched-table tbody th{
+                padding: 5px 25px;
+                border-right: 1px solid white;
+            }
+
+            .sched-table tbody tr{
+                border-bottom: 1px solid white;
+            }
+
+            /* STYLE OF VACANT ROWSPAN */
+            .vacant{
+                text-align: center;
+                background: linear-gradient(180deg, rgb(17, 0, 167), rgb(0, 238, 214), lime);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent; 
+                font-size: 25px;
+            }
+
+            /* STYLES OF ROWSPAN PER SUBJECTS */
+            .os{
+                background:  #009999;
+                color: #c2ffff;
+                font-size: 23px;
+                font-weight: 100;
+            }
+
+            .dsa{
+                background: rgb(163, 0, 163);
+                color:rgb(255, 183, 255) ;
+                font-size: 23px;
+                font-weight: 100;
+            }
+
+            .pmo{
+                background: orange;
+                color: rgb(71, 46, 0);
+                font-size: 23px;
+                font-weight: 100;
+            }
+
+            .ipt{
+                background: orangered;
+                color: rgb(78, 21, 0);
+                font-size: 23px;
+                font-weight: 100;
+            }
+
+            .idcs{
+                background: rgb(0, 182, 0);
+                color: rgb(0, 41, 0);
+                font-size: 23px;
+                font-weight: 100;
+            }
+
+            .cp3{
+                background: rgb(0, 63, 0);
+                color: rgb(0, 255, 0);
+                font-size: 23px;
+                font-weight: 100;
+            }
+
+            .pm{
+                background: rgb(0, 255, 106);
+                color: rgb(1, 53, 22);
+                font-size: 23px;
+                font-weight: 100;
+            }
+
+            .dcn{
+                background: rgb(64, 0, 182);
+                color: rgb(218, 198, 255);
+                font-size: 23px;
+                font-weight: 100;
+            }
+
+            #clear-space{
+                background: transparent;
+                height: 50px;
+            }
+
+            .sched-table span{
+                font-family: Agency FB;
+                font-size: 21px;
+                font-weight: 100;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+            }
+
+            .times{
+                background: rgb(13, 0, 128);
+                color: white;
+                font-size: 20px;
+            }
+
+            @media only screen and (max-width: 1030px) {
+                .sched-table {
+                    margin-top: 20%;
+                }
+
+                .sched-table thead{
+                    font-size: 21px;
+                }
+
+                .vacant{
+                    font-size: 20px;
+                }
+
+                .sched-table tbody th{
+                    font-size: 20px;
+                }
+
+                .sched-table span{
+                    font-size: 17px;
+                }
+
+                tbody tr .times{
+                    font-size: 17px;
+                }
+            }
+
+            @media only screen and (max-width:800px){
+                .sched-table thead{
+                    background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                    letter-spacing: .5px;
+                    font-size: 17px;
+                    border-bottom: 2px solid white;
+                }
+
+                .sched-table thead th{
+                    padding: 5px 5px;
+                }
+
+                .vacant{
+                    text-align: center;
+                    background: linear-gradient(180deg, rgb(17, 0, 167), rgb(0, 238, 214), lime);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent; 
+                    font-size: 15px;
+                }
+
+                .sched-table{
+                    margin: auto;
+                    margin-top: 1%;
+                    padding: 0;
+                    max-width: 100%;
+                    border-radius: 10px 10px 0 0;
+                }
+
+                .sched-table tbody th{
+                    font-size: 17px;
+                    padding: 1px 5px;
+                    border-right: 1px solid white;
+                }
+
+                .sched-table tbody tr{
+                    border-bottom: 1px solid white;
+                }
+
+                header{
+                    letter-spacing: 1px;
+                    word-spacing: 2px;
+                    position: unset;
+                    width: 100%;
+                    height: 100px;
+                    top: 0;   
+                }
+
+                header h1{
+                    font-size: 25px;
+                }
+
+                header h3{
+                    font-size: 17px;
+                }
+
+                #header-id{
+                    width: 100%;
+                    height: 50px;
+                }
+
+                #header-id #name{
+                    font-size: 15px;
+                }
+
+                #header-id #studnum{
+                    font-size: 15px;
+                }
+
+                .sched-table span{
+                    font-size: 15px;
+                    letter-spacing: .7px;
+                    word-spacing: 1px;
+                }
+
+                .times{
+                    font-size: 15px;
+                }
+
+                #side-bar {
+                    width: 45px;
+                    height: 45px;
+                    padding: 0;
+                    right: 15px;
+                    border-radius: 5px;
+                }
+
+                #side-bar li{
+                    transform: scale(0.6);
+                    margin: 0;
+                }
+
+                #side-bar:hover {
+                    height: 500px;
+                    background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                }
+
+                #side-bar #homepageIcon:hover {
+                    transform: scale(0.6);
+                }
+
+                #side-bar li:hover {
+                    background: rgba(9, 0, 94, 0.589);
+                }
+
+                #tooltipText {
+                    width: 150px;
+                    right: 130%;
+                    font-size: 25px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--SIDE NAV BAR-->
+        <nav id="side-bar">
+            <ul>
+                <li style="background: rgba(255, 255, 255, 0.795);">
+                    <img src="imgs/listicon.png" alt="">
+                </li>
+                <li id="homepageIcon">
+                    <span id="tooltipText">RETURN TO MAIN MENU</span>
+                    <a href="0 MAIN LANDING PAGE.html"><img src="imgs/HOMEPAGEICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">PERSONAL WEB BLOG</span>
+                    <a href="01 PERSONAL BLOG WEBPAGE.html"><img src="imgs/BLOGICON.png" alt=""></a>
+                </li>
+                <li id="currentPage">
+                    <span id="tooltipText">CLASS SCHEDULE</span>
+                    <a href="02 CLASS SCHEDULE WEBPAGE.HTML"><img src="imgs/SCHEDICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">INSPIRATIONAL QUOTES</span>
+                    <a href="03 INSPIRATIONAL QUOTES WEBPAGE.html"><img src="imgs/QUOTESICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">FAVORITE APPS</span>
+                    <a href="04 FAVORITE APPLICATIONS WEBPAGE.html"><img src="imgs/APPICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">FAVORITE SONGS</span>
+                    <a href="05 FAVORITE SONGS WEBPAGE.HTML"><img src="imgs/MUSICICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">PHOTO GALLERY</span>
+                    <a href="06 MY PHOTO GALLERY.html"><img src="imgs/GALLERYICON.png" alt=""></a>
+                </li>
+                
+            </ul>
+        </nav>
+
+        <!--HEADER: THE UPPER PART OF THE WEBPAGE THAT CONTAINS THE WEB TITLE, MY NAME, AND SECTION-->
+        <header>
+            <h1>FIRST SEM CLASS SCHEDULE</h1>
+            <h3>DICT 2-2</h3>
+            <!--DIV CONTAINER FOR MY NAME AND STUDENT NUMBER-->
+            <div id="header-id">
+                <div id="name">
+                    <p style="color: white; font-weight: bolder;">NAME:  </p>
+                    <p id="namebox" style="font-weight: bolder; border-radius: 25px; background: white; color: rgb(17, 0, 167); padding: 10px 10px 10px 10px">HARVY JONES PONTILLAS</p>
+                </div>
+                <div id="studnum">
+                    <p style="color: white; font-weight: bolder;">STUDENT NUMBER:</p>
+                    <p id="namebox" style="font-weight: bolder; border-radius: 25px; background: white; color: rgb(17, 0, 167); padding: 10px 10px 10px 10px">2020-02309-MN-0</p>
+                </div>
+            </div>
+        </header>
+        
+        <!--CLASS SCHEDULE TABLE SECTION-->
+        <section>
+            <!--CLASS SCHEDULE TABLE-->
+            <table class="sched-table">
+                <!--THEAD TO SERVE AS A TITLE FOR EACH COLUMNS-->
+                <thead>
+                        <th>TIME</th>
+                        <th>MON</th>
+                        <th>TUE</th>
+                        <th>WED</th>
+                        <th>THU</th>
+                        <th>FRI</th>
+                        <th>SAT</th>
+                        <th>SUN</th>
+                </thead>
+
+                <!--TBODY: CONTAINS THE SLICES OF TIME PER 30 MINUTES AND THE SUBJECTS-->
+                <tbody>
+                    <!--ROW 1-->
+                    <tr>
+                        <th class="times">7:30AM -<br>8:00AM</th>
+                        <th></th>
+                        <th rowspan="22" class="vacant">V<br><br><br>A<br><br><br>C<br><br><br>A<br><br><br>N<br><br><br>T</th>
+                        <th rowspan="10" class="os">OPERATING<br>SYSTEMS<br><br><span>Faculty:<br>Mylo Atencio</span></th>
+                        <th rowspan="10" class="pm">PROJECT<br>MANAGEMENT<br><br><span>Faculty:<br>Fernando Lipardo Jr.</span></th>
+                        <th rowspan="10" class="dsa">DATA<br>STRUCTURES AND<br>ALGORITHMS<br><br><span>Faculty:<br>Mylo Atencio</span></th>
+                        <th rowspan="10" class="dcn">DATA<br>COMMUNICATIONS<br>AND NETWORKING<br><br><span>Faculty:<br>Kenneth Dazon</span></th>
+                        <th rowspan="22" class="vacant">V<br><br><br>A<br><br><br>C<br><br><br>A<br><br><br>N<br><br><br>T</th>
+                    </tr>
+
+                    <!--ROW 2: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">8:00AM -<br>8:30AM</th>
+                    </tr>
+
+                    <!--ROW 3: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">8:30AM -<br>9:00AM</th>
+                       
+                    </tr>
+
+                    <!--ROW 4: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">9:00AM -<br>9:30AM</th>
+                      
+                    </tr>
+
+                    <!--ROW 5: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">9:30AM -<br>10:00AM</th>
+                    </tr>
+
+                    <!--ROW 6: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">10:00AM -<br>10:30AM</th>
+                    </tr>
+
+                    <!--ROW 7-->
+                    <tr>
+                        <th class="times">10:30AM -<br>11:00AM</th>
+                        <th rowspan="6" class="pmo">PRINCIPLES OF<br>MANAGEMENT AND<br>ORGANIZATION<br><br><span>Faculty:<br>Maria Azalea Bien</span></th>                    
+                    </tr>
+
+                    <!--ROW 8: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">11:00AM -<br>11:30AM</th>
+                    
+                    </tr>
+
+                    <!--ROW 9: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">11:30AM -<br>12:00PM</th>
+                    </tr>
+
+                    <!--ROW 10: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">12:00PM -<br>12:30PM</th>
+                    </tr>
+
+                    <!--ROW 11: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">12:30PM -<br>1:00PM</th>
+                    </tr>
+
+                    <!--ROW 12-->
+                    <tr>
+                        <th class="times">1:00PM -<br>1:30PM</th>
+                        <th></th>
+                        <th rowspan="6" class="ipt">INTEGRATIVE<br>PROGRAMMING AND<br>TECHNOLOGIES<br><br><span>Faculty:<br>Junilyn Lipardo</span></th>
+                    </tr>
+
+                    <!--ROW 13-->
+                    <tr>
+                        <th class="times">1:30PM -<br>2:00PM</th>
+                        <th rowspan="4" class="ipt">INTEGRATIVE<br>PROGRAMMING AND<br>TECHNOLOGIES<br><br><span>Faculty:<br>Julilyn Lipardo</span></th>
+                    </tr>
+
+                    <!--ROW 14: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">2:00PM -<br>2:30PM</th>
+                    </tr>
+
+                    <!--ROW 15: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">2:30PM -<br>3:00PM</th>
+                    </tr>
+
+                    <!--ROW 16: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">3:00PM -<br>3:30PM</th>
+                    </tr>
+
+                    <!--ROW 17: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">3:30PM -<br>4:00PM</th>
+                    </tr>
+
+                    <!--ROW 18: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">4:00PM -<br>4:30PM</th>
+                    </tr>
+
+                    <!--ROW 19-->
+                    <tr>
+                        <th class="times">4:30PM -<br>5:00PM</th>
+                        <th rowspan="5" class="idcs">INDIVIDUAL/<br>DUAL/COMBATIVE<br>SPORTS<br><br><span>Faculty:<br>Jestoni Reyes</span></th>
+                        <th></th>
+                        <th rowspan="5" class="cp3">COMPUTER<br>PROGRAMMING<br>3<br><br><span>Faculty:<br>Diana Macapagal</span></th>
+                    </tr>
+
+                    <!--ROW 20: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">5:00PM -<br>5:30PM</th>
+                    </tr>
+
+                    <!--ROW 21: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">5:30PM -<br>6:00PM</th>
+                    </tr>
+
+                    <!--ROW 22: NO SUBJECT STARTING AT THIS ROW-->
+                    <tr>
+                        <th class="times">6:00PM -<br>6:30PM</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!--FOR SPACE AT THE END OF THE WEBPAGE-->
+            <div id="clear-space"></div>
+        </section>
+    </body>
+</html>

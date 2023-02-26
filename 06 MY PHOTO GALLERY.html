@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>MY PHOTO GALLERY</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/x-icon" href="imgs/my logo.png"/>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* ELEVATOR: BUTTON TO GO BACK TO TOP */
+            #elevator {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                position: fixed;
+                bottom: 30px;
+                right: 20px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                z-index: 5;
+                transition: all ease 200ms;
+                background: rgba(255, 255, 255, 0.795);            
+            }
+
+            #elevator:hover {
+                bottom: 35px;
+            }
+
+            #elevator p{
+                position: absolute;
+                color: white;
+                text-align: center;
+                top: -140%;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                background: rgba(0, 0, 0, 0.753);
+                padding: 5px;
+                visibility: hidden;
+                opacity: 0;
+                transition: 0.5s ease;
+                font-family: Agency FB;
+            }
+
+            #elevator:hover p {
+                visibility: visible;
+                opacity: 1;
+            }
+            #elevator img{
+                margin-top: 15px;
+                width: 25px;
+                height: 15px;
+            }
+
+            /* SIDE BAR */
+            #side-bar {
+                display: flex;
+                flex-direction: column;
+                height: 60px;
+                padding: 5px;
+                align-items: center;
+                position: fixed;
+                right: 5px;
+                top: 10px;
+                border-radius: 15px;
+                overflow: hidden;
+                transition: ease 200ms;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                z-index: 5;
+            }
+
+            #side-bar li{
+                border-radius: 10px;
+                padding: 10px;
+                list-style: none;
+                margin-bottom: 10px;
+                transition: all ease 300ms;
+                position: relative;
+            }
+
+            #side-bar ul #currentPage #tooltipText{
+                width: 150px;
+                border-bottom: 5px solid lime;
+                visibility: visible;
+                opacity: 1;
+            }
+
+            #side-bar ul #currentPage {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #side-bar:hover {
+                height: 580px;
+                background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                overflow: visible;
+            }
+
+            #side-bar #homepageIcon:hover {
+                background: none;
+                transform: scale(1.05);
+            }
+
+            #side-bar li:hover {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #tooltipText {
+                font-family: Agency FB;
+                position: absolute;
+                width: 120px;
+                right: 110%;
+                background: rgba(0, 0, 0, 0.753);
+                color: white;
+                text-align: center;
+                padding: 15px 15px;
+                border-radius: 7px;
+                transition: 0.5s ease;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                z-index: 5;
+                visibility: hidden;
+                opacity: 0;
+            }
+
+            #side-bar li:hover #tooltipText {
+                visibility: visible;
+                opacity: 1;
+            }
+
+
+            .container{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                margin: 40px 80px 0 80px;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.541);
+                border-top-left-radius: 25px;
+                overflow: hidden;
+                border-top-right-radius: 25px;
+                margin-bottom: 25px;
+            }
+
+            /* WEBPAGE TITLE CONTAINER STYLINGS */
+            .heading{
+                height: 300px;
+                width: 100%;
+                background-image: url(imgs/NATUREPHOTOBG.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                animation: heading-Anim 2s forwards;
+                transition: all ease;
+            }
+
+            @keyframes heading-Anim {
+                0%{
+                    background-position: top;
+                }
+                100%{
+                    background-position: center;
+                }
+            }
+
+            #transpa-bg {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(90deg, rgba(17, 0, 167, 0.671), rgba(0, 238, 214, 0.671));
+                position: relative;
+            }
+
+            #transpa-bg img {
+                margin-bottom: 15px;
+                animation: camIconAnim 400ms forwards;
+                transition: all ease;
+                animation-delay: 2s;
+            }
+
+            @keyframes camIconAnim{
+                0%{
+                    transform: scale(1);
+                }
+                33.3%{
+                    transform: scale(.7);
+                }
+                66.63%{
+                    transform: scale(1.1);
+                }
+                100%{
+                    transform: scale(1);
+                }
+            }
+
+            #transpa-bg p{
+                color: white;
+                font-family: Agency FB;
+                font-size: 55px;
+                font-weight: 100;;
+                letter-spacing: 2px;
+                word-spacing: 4px;
+            }
+
+            #transpa-bg #title-des{
+                font-size: 21px;
+                width: 90%;
+            }
+
+            /* BOX CONTAINING THE THREE COLUMNS OF IMAGES STYLING */
+            .box{
+                margin: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                
+            }
+
+            /* FORMAT FOR EACH COLUMNS OF IMAGES */
+            .box .photocolumns{
+                display: flex;
+                flex-direction: column;
+                width: 32.5%;
+                align-items: center;
+                gap: 15px;
+            }
+
+            /* FORMAT FOR EVERY CONTAINER OF EACH IMAGES */
+            .box .photocolumns span{
+                width: 100%;
+                overflow: hidden;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                position: relative;
+            }
+
+            /* FORMAT THE EVERY IMAGES */
+            .box .photocolumns img{
+                height: 100%;
+                width: 100%;
+                transition: all 0.3s ease;
+            }
+
+            .box .photocolumns img:hover{
+                transform: scale(1.1);
+            }
+
+            #lineUnder {
+                width: 100%;
+                height: 10px;
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+            }
+
+            @media only screen and (max-width: 769px){
+                .container .box{
+                    flex-direction: column;
+                }
+                .container .box .photocolumns{
+                    width: 100%;
+                }
+                .container{
+                    margin: 0;   
+                }
+
+                 #transpa-bg img {
+                    transform: scale(.8);
+                    margin-bottom: 15px;
+                }
+
+                @keyframes camIconAnim{
+                    0%{
+                        transform: scale(.8);
+                    }
+                    33.3%{
+                        transform: scale(.6);
+                    }
+                    66.63%{
+                        transform: scale(1);
+                    }
+                    100%{
+                        transform: scale(.8);
+                    }
+                }
+
+                #transpa-bg p{
+                    font-size: 35px;
+                }
+
+                #transpa-bg #title-des{
+                    font-size: 21px;
+                    width: 90%;
+                }
+            }
+
+            @media only screen and (max-width: 850px){
+                .container .heading{
+                    width: 100%;
+                }
+
+                .container .heading h3{
+                    font-size: 1.5em;
+                }
+
+                .container{
+                    margin: 10px 10px 0 10px;
+                }
+
+                #side-bar {
+                    width: 45px;
+                    height: 45px;
+                    padding: 0;
+                    right: 20px;
+                    border-radius: 5px;
+                }
+
+                #side-bar li{
+                    transform: scale(0.6);
+                    margin: 0;
+                }
+
+                #side-bar:hover {
+                    height: 500px;
+                    background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                }
+
+                #side-bar #homepageIcon:hover {
+                    transform: scale(0.6);
+                }
+
+                #side-bar li:hover {
+                    background: rgba(9, 0, 94, 0.589);
+                }
+
+                #tooltipText {
+                    width: 150px;
+                    right: 130%;
+                    font-size: 25px;
+                }
+            }
+
+            @media only screen and (max-width: 523px){
+
+                 #transpa-bg img {
+                    transform: scale(.6);
+                    margin-bottom: 10px;
+                }
+
+                @keyframes camIconAnim{
+                    0%{
+                        transform: scale(.6);
+                    }
+                    33.3%{
+                        transform: scale(.4);
+                    }
+                    66.63%{
+                        transform: scale(.8);
+                    }
+                    100%{
+                        transform: scale(.6);
+                    }
+                }
+
+                #transpa-bg p{
+                    font-size: 35px;
+                }
+
+                #transpa-bg #title-des{
+                    font-size: 19px;
+                    width: 98%;
+                    text-align: justify;
+                }
+            }
+        </style>
+    </head>
+
+    <body id="body">
+        <!--SIDE NAVBAR-->
+         <nav id="side-bar">
+            <ul>
+                <li style="background: rgba(255, 255, 255, 0.795);">
+                    <img src="imgs/listicon.png" alt="">
+                </li>
+                <li id="homepageIcon">
+                    <span id="tooltipText">RETURN TO MAIN MENU</span>
+                    <a href="0 MAIN LANDING PAGE.html"><img src="imgs/HOMEPAGEICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">PERSONAL WEB BLOG</span>
+                    <a href="01 PERSONAL BLOG WEBPAGE.html"><img src="imgs/BLOGICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">CLASS SCHEDULE</span>
+                    <a href="02 CLASS SCHEDULE WEBPAGE.HTML"><img src="imgs/SCHEDICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">INSPIRATIONAL QUOTES</span>
+                    <a href="03 INSPIRATIONAL QUOTES WEBPAGE.html"><img src="imgs/QUOTESICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">FAVORITE APPS</span>
+                    <a href="04 FAVORITE APPLICATIONS WEBPAGE.html"><img src="imgs/APPICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">FAVORITE SONGS</span>
+                    <a href="05 FAVORITE SONGS WEBPAGE.HTML"><img src="imgs/MUSICICON.png" alt=""></a>
+                </li>
+                <li id="currentPage">
+                    <span id="tooltipText">PHOTO GALLERY</span>
+                    <a href="06 MY PHOTO GALLERY.html"><img src="imgs/GALLERYICON.png" alt=""></a>
+                </li>
+                
+            </ul>
+        </nav>
+
+        <!--ARROW ELEVATING BUTTON TO GO TO TOP-->
+        <div id="elevator">
+            <p>RETURN TO TOP</p>
+            <a href="#body">
+                <img src="imgs/arrow.png" alt="">
+            </a>
+        </div>
+
+        <!--WEBPAGE CONTENT DIV CONTAINER-->
+        <div class="container">
+            <!--WEBPAGE TITLE-->
+            <div class="heading">
+                <div id="transpa-bg">
+                    <img src="imgs/CAMERAICON.png" alt="">
+                    <p>PHOTO <span style="font-weight: 900; font-family: Agency FB;">GALLERY</span></p>
+                    <p id="title-des">As a person who loves art, I just love capturing the memories of life. Although I didn't go far with the field of photography, I still appreciate its existence. Nature is my favorite scenery. They are just so refreshing and fills your cup of inspiration. When I'm feeling down, I just look outside and breathe play with my cats while embracing the moments.</p>
+                </div>
+            </div>
+            <!--MAIN BOX DIV CONTAINING THREE COLUMNS ALL IMAGES-->
+            <div class="box">
+                <!--THREE COLUMNS OF IMAGES-->
+                <div class="photocolumns">
+                    <span><img src="photoGalImgs/8.png"></span>
+                    <span><img src="photoGalImgs/0.png"></span>
+                    <span><img src="photoGalImgs/1.jpg"></span>
+                    <span><img src="photoGalImgs/9.png"></span>
+                    <span><img src="photoGalImgs/4.jpg"></span>
+                    <span><img src="photoGalImgs/11.jpg"></span>
+                    <span><img src="photoGalImgs/F.jpg"></span>
+                </div>
+
+                <div class="photocolumns">
+                    <span><img src="photoGalImgs/A.png"></span>
+                    <span><img src="photoGalImgs/3.png"></span>
+                    <span><img src="photoGalImgs/J.png"></span>
+                    <span><img src="photoGalImgs/5.jpg"></span>
+                    <span><img src="photoGalImgs/6.png"></span>
+                    <span><img src="photoGalImgs/N.png"></span>
+                    <span><img src="photoGalImgs/E.png"></span>
+                </div>
+
+                <div class="photocolumns">
+                    <span><img src="photoGalImgs/2.png"></span>
+                    <span><img src="photoGalImgs/D.jpg"></span>
+                    <span><img src="photoGalImgs/P.png"></span>
+                    <span><img src="photoGalImgs/10.png"></span>
+                    <span><img src="photoGalImgs/I.jpg"></span>
+                    <span><img src="photoGalImgs/M.png"></span>
+                    <span><img src="photoGalImgs/B.jpg"></span>
+                </div>
+            </div>
+            <div id="lineUnder"></div>
+        </div>
+    <!--Bootstrap Link-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!--APlayer Jquery Link-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+    </body>
+</html>

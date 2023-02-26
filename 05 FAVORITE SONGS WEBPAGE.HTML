@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>MY FAVORITE SONGS</title>
+        <link rel="shortcut icon" type="image/x-icon" href="imgs/my logo.png"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                font-family: Agency FB;
+            }
+
+            /* ELEVATOR: BUTTON TO GO BACK TO TOP */
+            #elevator {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                position: fixed;
+                bottom: 30px;
+                right: 20px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                z-index: 5;
+                transition: all ease 200ms;
+                background: rgba(255, 255, 255, 0.795);            
+            }
+
+            #elevator:hover {
+                bottom: 35px;
+            }
+
+            #elevator p{
+                position: absolute;
+                color: white;
+                text-align: center;
+                top: -140%;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                background: rgba(0, 0, 0, 0.753);
+                padding: 5px;
+                visibility: hidden;
+                opacity: 0;
+                transition: 0.5s ease;
+                font-family: Agency FB;
+            }
+
+            #elevator:hover p {
+                visibility: visible;
+                opacity: 1;
+            }
+            #elevator img{
+                margin-top: 15px;
+                width: 25px;
+                height: 15px;
+            }
+
+            /* SIDE BAR */
+            #side-bar {
+                display: flex;
+                flex-direction: column;
+                height: 60px;
+                padding: 5px;
+                align-items: center;
+                position: fixed;
+                right: 5px;
+                top: 10px;
+                border-radius: 15px;
+                overflow: hidden;
+                transition: ease 200ms;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                z-index: 5;
+            }
+
+            #side-bar li{
+                border-radius: 10px;
+                padding: 10px;
+                list-style: none;
+                margin-bottom: 10px;
+                transition: all ease 300ms;
+                position: relative;
+            }
+
+            #side-bar ul #currentPage #tooltipText{
+                width: 150px;
+                border-bottom: 5px solid lime;
+                visibility: visible;
+                opacity: 1;
+            }
+
+            #side-bar ul #currentPage {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #side-bar:hover {
+                height: 560px;
+                background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                overflow: visible;
+            }
+
+            #side-bar #homepageIcon:hover {
+                background: none;
+                transform: scale(1.05);
+            }
+
+            #side-bar li:hover {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #tooltipText {
+                font-family: Agency FB;
+                position: absolute;
+                width: 150px;
+                right: 110%;
+                background: rgba(0, 0, 0, 0.753);
+                color: white;
+                text-align: center;
+                padding: 15px 15px;
+                border-radius: 7px;
+                transition: 0.5s ease;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                z-index: 5;
+                visibility: hidden;
+                font-size: 17px;
+                opacity: 0;
+            }
+
+            #side-bar li:hover #tooltipText {
+                visibility: visible;
+                opacity: 1;
+            }
+
+            /* FAVORITE SONGS LANDING SECTION STYLINGS */
+            #container{
+                width: 100%;
+                height: 100vh;
+            }
+
+            /* DIV CONTAINER OVER BACKGROUND IMAGE STYLINGS*/
+            #container-shades{
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(90deg, rgba(0, 0, 0, 0.932), rgba(0, 0, 0, 0.267));
+                display: flex;
+                flex-direction: row;
+            }
+
+            .music-container{
+                height: 100vh;
+                width: 37%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+            }
+
+            /* DIV CONTAINER FOR THE PICTURE ABOUT THE CURRENTLY DISPLAY AUDIO STYLINGS */
+            .img-container{
+                margin-top: 15%;
+                width: 295px;
+                height: 295px;
+                background: rgba(0, 0, 0, 0.692);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .img-container img{
+                border-radius: 50%;
+                object-fit: cover;
+                height: 265px;
+                width: 265px;
+                animation: rotate 3s linear infinite;
+                animation-play-state: paused;                
+            }
+
+            .music-container.play .img-container img{
+                outline: none;
+                animation-play-state: running;
+            }
+
+            @keyframes rotate{
+                from{
+                    transform: rotate(0deg);
+                }
+                to{
+                    transform: rotate(360deg);
+                }
+            }
+
+            #title{
+                letter-spacing: .5px;
+                word-spacing: 1px;
+                color: rgb(0, 238, 214);
+                font-size: 2.5em;
+            }
+
+            #artist{
+                color: white;
+                letter-spacing: .5px;
+                word-spacing: 1px;
+                font-size: 1.7em;
+            }
+
+            /* MUSIC INFO STYLINGS */
+            .music-info{
+                margin-top: 5%;
+                text-align: center;
+                font-weight: 100;
+                line-height: 25px;
+            }
+
+            /* NAVIGATION BUTTONS STYLING */
+            .navigation{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1;
+            }
+
+            .action-btn{
+                background: transparent;
+                border: 0;
+                color: rgb(0, 238, 214);
+                font-size: 25px;
+                cursor: pointer;
+                padding: 10px;          
+                margin-top: 25px;      
+            }
+
+            .action-btn.action-btn-big{
+                font-size: 45px;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.808);
+                height: 80px;
+                width: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 25px 30px 0 30px;
+            }
+
+            .action-btn:focus {
+                outline: none;
+            }
+
+            .action-btn:hover {
+                color: rgb(0, 117, 106);
+                transition: ease-in-out;
+            }
+
+            #back-img{
+                position: absolute;
+                width: 100%;
+                height: 100vh;
+                object-fit: cover;
+                z-index: -1;
+            }   
+
+            /* SONG PROGRESS DIV CONTAINER STYLINGS */
+            .progress-container {
+                background: rgba(0, 238, 214, 0.212);
+                border-radius: 5px;
+                cursor: pointer;
+                margin: 35px 0;
+                height: 4px;
+                width: 70%;
+                display: flex;
+                align-items: center;
+            }
+
+            .progress {
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                border-radius: 5px;
+                height: 100%;
+                width: 0%;
+                transition: width .1s linear;
+            }
+
+            .progress:hover{
+                animation: progressAnim 100ms forwards;
+            }
+
+            @keyframes progressAnim {
+                100%{
+                    height: 8px;
+                }
+            }
+
+            /* DISPLAYED TEXT FOR THE LANDING SECTION STYLINGS*/
+            #main-text {
+                width: 60%;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                letter-spacing: 2px;
+                word-spacing: 4px;
+                color: white;
+            }
+
+            #main-text h1 {
+                font-size: 6em;
+            }
+
+            #main-text p {
+                font-size: 1.7em;
+                color: white;
+            }
+
+            #myFavSpan{
+                color: rgb(0, 238, 214);
+                font-size: 1em;
+            }
+
+            /* BUTTON ADDRESSING TO THE FULL LIST SECTION STYLINGS*/
+            #main-text a{
+                text-decoration: none;
+                color: white;
+                letter-spacing: 2px;
+                word-spacing: 4px;
+                font-size: 2em;
+                padding: 5px 0;
+                background: linear-gradient(90deg, rgb(0, 185, 167), rgb(0, 238, 214));
+                border-radius: 35px;
+                margin-top: 3%;
+                box-shadow: -2px 5px 10px 2px rgba(0, 0, 0, 0.425);
+                width: 300px;
+                text-align: center;
+            }
+
+            #main-text a:hover{
+                animation: toFullList 300ms forwards;
+            }
+
+            @keyframes toFullList{
+                100%{
+                    background: linear-gradient(90deg, rgb(0, 77, 69), rgb(0, 141, 127));
+                }
+            }
+            
+            /* FULL LIST OF SONGS SECTION STYLINGS */
+            #full-list {
+                min-height: 1600px;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* FULL LIST TITLE FORMAT STYLINGS */
+            #full-list-title {
+                margin-top: 5px;
+                margin-bottom: 1%;
+                border-bottom: 5px solid grey;
+                width: 75%;
+                height: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #full-list-title p{
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent; 
+                letter-spacing: 3px;
+                word-spacing: 5px;
+                font-size: 5em;
+                height: 100%;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* THE EXACT DIV CONTAINING THE FULL LIST OF ALL SONGS */
+            #lists {
+                box-shadow: 0px 0px 15px 4px rgba(0,0,0,0.37) inset;
+                width: 78%;
+                min-height: 1600px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                padding: 15px 10px;
+            }
+
+            /* LISTS OF SONGS PER COLUMN STYLINGS */
+            .lists-columns {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* STYLING FORMAT FOR ALL SONGS IN FULL LISTS SECTION */
+            .musicList {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 300px;
+                height: 370px;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                margin-bottom: 5%;
+                transition: all ease 400ms;
+            }
+
+            .musicList-img {
+                width: 300px;
+                height: 300px;
+            }
+
+            .musicList:hover {
+                box-shadow: none;
+                transform: scale(.98) translateY(5px);
+            }
+
+            .musicList-img img {
+                object-fit: cover;
+                height: 300px;
+                width: 300px;
+            }
+
+            .musicList-info {
+                text-align: center;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                margin-top: 3%;
+                line-height: 1px;
+                width: 100%;
+            }
+
+            .musicList-info h4 {
+                font-size: 1.5em;
+            }
+
+            .musicList-info p {
+                font-size: 1.2em;
+            }
+
+            #column2 {
+                margin: 0 5%;
+            }
+
+            /* PLAYER FOR FULL LIST SONGS STYLINGS */
+            #aplayer {
+                position: fixed;
+                bottom: -100%;
+                left: 0;
+                width: 100%;
+                margin: 0;
+                box-shadow: 0 -2px 2px rgb(0, 0, 0);
+                background-color: #fff;
+                transition: all ease 0.5s;
+            }
+
+            #aplayer.showPlayer{
+                bottom: 0;
+            }
+
+            /*MUSIC PLAYER CUSTOMIZING STYLE*/
+            span {
+                color: rgb(0, 238, 214);
+                font-size: 20px;
+            }
+
+            .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-loaded{
+                background: grey;
+                height: 4px;
+            }
+
+            .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-played{
+                height: 4px;
+                background: rgb(0, 238, 214)!important;
+            }
+
+            .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-played .player-thumb{
+                height: 4px;
+                background: rgb(0, 238, 214)!important;
+            }
+            
+
+            @media only screen and (max-width: 956px){
+                #title{
+                    font-size: 2em;
+                }
+
+                #artist{
+                    font-size: 1.5em;
+                }
+
+                #main-text h1 {
+                    font-size: 4em;
+                }
+
+                #main-text p {
+                    font-size: 1.5em;
+                }
+
+                #main-text a{
+                    font-size: 1.7em;
+                    padding: 5px 0;
+                    margin-top: 3%;
+                    width: 200px;
+                }
+
+                #full-list-title p {
+                    letter-spacing: 2px;
+                    word-spacing: 4px;
+                    font-size: 4em;
+                }
+            }
+
+            @media only screen and (max-width: 888px) {
+                #lists {
+                    width: 100%;
+                }
+                #full-list-title {
+                    margin-bottom: 3%;
+                    border-bottom: 3px solid grey;
+                    width: 90%
+                }
+            }
+
+            @media only screen and (max-width: 1200px) {
+                .img-container{
+                    background: transparent;
+                }
+            }
+
+            @media only screen and (max-width: 816px) {
+                #container-shades{
+                    align-items: center;
+                    justify-content: center;
+                }
+                #side-bar {
+                    width: 45px;
+                    height: 45px;
+                    padding: 0;
+                    right: 15px;
+                    border-radius: 5px;
+                }
+
+                #side-bar li{
+                    transform: scale(0.6);
+                    margin: 0;
+                }
+
+                #side-bar:hover {
+                    height: 500px;
+                    background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                }
+
+                #side-bar #homepageIcon:hover {
+                    transform: scale(0.6);
+                }
+
+                #side-bar li:hover {
+                    background: rgba(9, 0, 94, 0.589);
+                }
+
+                #tooltipText {
+                    width: 150px;
+                    right: 130%;
+                    font-size: 25px;
+                }
+            }
+
+            @media only screen and (max-width: 772px) {
+                #container{
+                    width: 100%;
+                    min-height: 1100px;
+                }
+
+                #container-shades{
+                    width: 100%;
+                    min-height: 1100px;
+                    background: linear-gradient(180deg, rgba(0, 0, 0, 0.932), rgba(0, 0, 0, 0.267));
+                    flex-direction: column;
+                    justify-content: flex-start;
+                }
+
+                #back-img {
+                    min-height: 1100px;
+                }
+
+                .progress-container {
+                    width: 200%;
+                }
+
+                #main-text {
+                    width: 90%;
+                    align-items: center;
+                    justify-content:flex-start;
+                }
+
+                #main-text h1 {
+                    font-size: 6em;
+                }
+
+                #main-text p {
+                    font-size: 1.2em;
+                    color: white;
+                    text-align: justify;
+                }
+            }
+
+            @media only screen and (max-width: 690px) {
+                #main-text h1 {
+                    font-size: 4em;
+                }
+
+                #title{
+                    font-size: 1.7em;
+                }
+
+                #artist{
+                    font-size: 1.2em;
+                }
+            }
+        </style>
+        
+    </head>
+   
+    <body id="body">
+        <!--SIDE NAVBAR-->
+        <nav id="side-bar">
+            <ul>
+                <li style="background: rgba(255, 255, 255, 0.795);">
+                    <img src="imgs/listicon.png" alt="">
+                </li>
+                <li id="homepageIcon">
+                    <span id="tooltipText">RETURN TO MAIN MENU</span>
+                    <a href="0 MAIN LANDING PAGE.html"><img src="imgs/HOMEPAGEICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">PERSONAL WEB BLOG</span>
+                    <a href="01 PERSONAL BLOG WEBPAGE.html"><img src="imgs/BLOGICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">CLASS SCHEDULE</span>
+                    <a href="02 CLASS SCHEDULE WEBPAGE.HTML"><img src="imgs/SCHEDICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">INSPIRATIONAL QUOTES</span>
+                    <a href="03 INSPIRATIONAL QUOTES WEBPAGE.html"><img src="imgs/QUOTESICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">FAVORITE APPS</span>
+                    <a href="04 FAVORITE APPLICATIONS WEBPAGE.html"><img src="imgs/APPICON.png" alt=""></a>
+                </li>
+                <li id="currentPage">
+                    <span id="tooltipText">FAVORITE SONGS</span>
+                    <a href="05 FAVORITE SONGS WEBPAGE.HTML"><img src="imgs/MUSICICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">PHOTO GALLERY</span>
+                    <a href="06 MY PHOTO GALLERY.html"><img src="imgs/GALLERYICON.png" alt=""></a>
+                </li>
+                
+            </ul>
+        </nav>
+
+        <!--ARROW ELEVATING BUTTON TO GO BACK TO THE TOP-->
+        <div id="elevator">
+            <p>RETURN TO TOP</p>
+            <a href="#body">
+                <img src="imgs/arrow.png" alt="">
+            </a>
+        </div>
+
+        <!--FAVORITE SONGS LANDING SECTION-->
+        <section id="container">
+        <img src="imgs/Come Inside of My Heart.jpg" alt="Background Image" id="back-img">
+        <!--MAIN DIV CONTAINER FOR THE LANDING SECTION-->
+        <div id="container-shades">
+            <div class="music-container" id="music-container">
+                <!--DIV CONTAINER FOR THE PICTURE ABOUT THE CURRENTLY DISPLAY AUDIO-->
+                <div class="img-container">
+                    <img src="imgs/Come Inside of My Heart.jpg" id="cover">
+                </div>
+                <!--INFO ABOUT THE CURRENT SONG-->
+                <div class="music-info">
+                    <p id="title">Come Inside of My Heart</p>
+                    <p id="artist">IV of Spades</p>
+                </div>
+                <!--STARTING AUDIO TRACK-->
+                <audio src="songs/Come Inside Of My Heart.mp3" id="audio"></audio>
+                <!--NAVIGATION BUTTONS TO PLAY/PAUSE, PREVIOUS, NEXT-->
+                <div class="navigation">
+                    <button id="prev" class="action-btn">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    <button id="play" class="action-btn action-btn-big">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button id="next" class="action-btn">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                </div>
+                <!--SONG PROGRESS-->
+                <div class="progress-container" id="progresscontainer">
+                    <div class="progress" id="progress"></div>
+                </div>
+            </div>
+            <!--SECTION DISPLAY TEXTS-->
+            <div id="main-text">
+                <h1><span id="myFavSpan">MY FAVORITE</span> SONGS</h1>
+                <p>Music runs through my veins and without it, it will be the time the world will turn into nothing but black and white. My taste of music is pretty a mix of everything, from 90's, pop, rock, ballad, R&B, country, to even blues.</p>
+                <a href="#full-list">VIEW FULL LIST</a>
+            </div>
+        </div>
+        </section>
+
+
+        <!--FULL LIST SECTION-->
+        <section id="full-list">
+            <div id="full-list-title">
+                <p>FULL LIST</p>
+            </div>
+
+            <!--DIV CONTAINER FOR THE LISTS OF SONGS (DIVIDED INTO 3 COLUMNS)-->
+            <div id="lists">
+                <!--COLUMN 1-->
+                <div id="column1" class="lists-columns">
+                    <!--DIV CONTAINER FOR EACH SONGS-->
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="0"><img src="imgs/Come Inside of My Heart.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Come Inside of My Heart</h4>
+                            <p>IV of Spades</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="3"><img src="imgs/Pumped Up Kicks.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Pumped Up Kicks</h4>
+                            <p>Foster The People</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="6"><img src="imgs/ILYSB.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>ILYSB</h4>
+                            <p>LANY</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="9"><img src="imgs/Never Enough.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Never Enough</h4>
+                            <p>One Direction</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="12"><img src="imgs/Geronimo.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Geronimo</h4>
+                            <p>Sheppard</p>
+                        </div>
+                    </div>
+                </div>
+                <!--COLUMN 2-->
+                <div id="column2" class="lists-columns">
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="1"><img src="imgs/Lost Stars.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Lost Stars</h4>
+                            <p>Adam Levine</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="4"><img src="imgs/Hard Place.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Hard Place</h4>
+                            <p>H.E.R</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="7"><img src="imgs/Super Far.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Super Far</h4>
+                            <p>LANY</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="10"><img src="imgs/Girl Almighty.jpeg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Girl Almighty</h4>
+                            <p>One Direction</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="13"><img src="imgs/No Good in Goodbye.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>No Good in Goodbye</h4>
+                            <p>The Script</p>
+                        </div>
+                    </div>
+                </div>
+                <!--COLUMN 3-->
+                <div id="column3" class="lists-columns">
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="2"><img src="imgs/Bubbly.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Bubbly</h4>
+                            <p>Colbie Caillat</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="5"><img src="imgs/13.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>13</h4>
+                            <p>LANY</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="8"><img src="imgs/Man in the Mirror.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Man in the Mirror</h4>
+                            <p>Michael Jackson</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="11"><img src="imgs/Circles.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Circles</h4>
+                            <p>Post Malone</p>
+                        </div>
+                    </div>
+                    <div class="musicList">
+                        <div class="musicList-img">
+                            <a href="javascript:void();" class="album-poster" data-switch="14"><img src="imgs/Tear In My Heart.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="musicList-info">
+                            <h4>Tear In My Heart</h4>
+                            <p>Twenty One Pilots</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+    <!--PLAYER WHEN SONGS IN FULL LIST WAS CLICKED TO PLAY-->
+    <div id="aplayer" class="aplayer"></div>
+
+    <!--JQUERY LINK-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <!--BOOTSTRAP LINK-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!--APLAYER JQUERY LINK-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+    
+    <!--JAVASCRIPT FOR APLAYER-->
+    <script>
+        $(".album-poster").on('click', function(e) {
+            var dataSwitchId = $(this).attr('data-switch');
+
+            ap.list.switch(dataSwitchId); 
+
+            ap.play();
+            $("#aplayer").addClass('showPlayer');
+        });
+
+        const ap = new APlayer({
+            container: document.getElementById('aplayer'),
+            listFolded: true,
+            audio: [
+            {
+                name: 'Come Inside of My Heart',
+                artist: 'Twenty One Pilots',
+                url: 'songs/Come Inside Of My Heart.mp3',
+                cover: 'imgs/Come Inside of My Heart.jpg'
+            },
+            {
+                name: 'Lost Stars',
+                artist: 'Adam Levine',
+                url: 'songs/Lost Stars.mp3',
+                cover: 'imgs/Lost Stars.jpg'
+            },
+            {
+                name: 'Bubbly',
+                artist: 'Colbie Caillat',
+                url: 'songs/Bubbly.mp3',
+                cover: 'imgs/Bubbly.jpg'
+            },
+            {
+                name: 'Pumped Up Kicks',
+                artist: 'Foster The People',
+                url: 'songs/Pumped Up Kicks.mp3',
+                cover: 'imgs/Pumped Up Kicks.jpg'
+            },
+            {
+                name: 'Hard Place',
+                artist: 'H.E.R',
+                url: 'songs/Hard Place.mp3',
+                cover: 'imgs/Hard Place.jpg'
+            },
+            {
+                name: '13',
+                artist: 'LANY',
+                url: 'songs/13.mp3',
+                cover: 'imgs/13.jpg'
+            },
+            {
+                name: 'ILYSB',
+                artist: 'LANY',
+                url: 'songs/ILYSB.mp3',
+                cover: 'imgs/ILYSB.jpg'
+            },
+            {
+                name: 'Super Far',
+                artist: 'LANY',
+                url: 'songs/Super Far.mp3',
+                cover: 'imgs/Super Far.jpg'
+            },
+            {
+                name: 'Man in the Mirror',
+                artist: 'Michael Jackson',
+                url: 'songs/Man in the Mirror.mp3',
+                cover: 'imgs/Man in the Mirror.jpg'
+            },
+            {
+                name: 'Never Enough',
+                artist: 'One Direction',
+                url: 'songs/Never Enough.mp3',
+                cover: 'imgs/Never Enough.jpg'
+            },
+            {
+                name: 'Girl Almighty',
+                artist: 'One Direction',
+                url: 'songs/Girl Almighty.mp3',
+                cover: 'imgs/Girl Almighty.jpeg'
+            },
+            {
+                name: 'Circles',
+                artist: 'Post Malone',
+                url: 'songs/Circles.mp3',
+                cover: 'imgs/Circles.jpg'
+            },
+            {
+                name: 'Geronimo',
+                artist: 'Sheppard',
+                url: 'songs/Geronimo.mp3',
+                cover: 'imgs/Geronimo.jpg'
+            },
+            {
+                name: 'No Good in Goodbye',
+                artist: 'The Script',
+                url: 'songs/No Good in Goodbye.mp3',
+                cover: 'imgs/No Good in Goodbye.jpg'
+            },
+            {
+                name: 'Tear In My Heart',
+                artist: 'Twenty One Pilots',
+                url: 'songs/Tear In My Heart.mp3',
+                cover: 'imgs/Tear In My Heart.jpg'
+            },
+        
+            ]
+        });
+    </script>
+    </body>
+    <!-- JAVASCRIPT LINK FOR THE LANDING SECTION-->
+    <script src="favsongs.js"></script>
+</html>

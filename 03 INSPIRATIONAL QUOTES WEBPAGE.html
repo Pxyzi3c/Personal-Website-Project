@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>INSPIRATIONAL QUOTES</title>
+        <link rel="shortcut icon" type="image/x-icon" href="imgs/my logo.png"/>
+        <link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet" type="text/css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" type="text/css">
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+
+            /* SIDE BAR*/
+            #side-bar {
+                display: flex;
+                flex-direction: column;
+                height: 52px;
+                padding: 5px;
+                align-items: center;
+                position: fixed;
+                right: 5px;
+                top: 10px;
+                border-radius: 15px;
+                overflow: hidden;
+                transition: ease 200ms;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                z-index: 5;
+            }
+
+            #side-bar li{
+                border-radius: 10px;
+                padding: 10px;
+                list-style: none;
+                margin-bottom: 10px;
+                transition: all ease 300ms;
+                position: relative;
+            }
+
+            #side-bar ul #currentPage #tooltipText{
+                width: 150px;
+                border-bottom: 5px solid lime;
+                visibility: visible;
+                opacity: 1;
+            }
+
+            #side-bar ul #currentPage {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #side-bar:hover {
+                height: 560px;
+                background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                overflow: visible;
+            }
+
+            #side-bar #homepageIcon:hover {
+                background: none;
+                transform: scale(1.05);
+            }
+
+            #side-bar li:hover {
+                background: rgba(9, 0, 94, 0.589);
+            }
+
+            #tooltipText {
+                font-family: Agency FB;
+                position: absolute;
+                width: 120px;
+                right: 110%;
+                background: rgba(0, 0, 0, 0.753);
+                color: white;
+                text-align: center;
+                padding: 15px 15px;
+                border-radius: 7px;
+                transition: 0.5s ease;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                z-index: 5;
+                visibility: hidden;
+                opacity: 0;
+            }
+
+            #side-bar li:hover #tooltipText {
+                visibility: visible;
+                opacity: 1;
+            }
+
+            /* ELEVATOR: BUTTON TO GO BACK TO TOP */
+            #elevator {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.75);
+                position: fixed;
+                bottom: 30px;
+                right: 20px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                z-index: 5;
+                transition: all ease 200ms;
+                background: rgba(255, 255, 255, 0.795);            
+            }
+
+            /* ELEVATOR: BUTTON TO GO BACK TO TOP */
+            #elevator:hover {
+                bottom: 35px;
+            }
+
+            #elevator p{
+                position: absolute;
+                color: white;
+                text-align: center;
+                top: -140%;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                background: rgba(0, 0, 0, 0.753);
+                padding: 5px;
+                visibility: hidden;
+                opacity: 0;
+                transition: 0.5s ease;
+                font-family: Agency FB;
+            }
+
+            #elevator:hover p {
+                visibility: visible;
+                opacity: 1;
+            }
+            #elevator img{
+                margin-top: 15px;
+                width: 25px;
+                height: 15px;
+            }
+            
+            /* HEADER STYLINGS*/
+            header{
+                width: 100%;
+                height: 250px;
+                background-image: url(imgs/BG3.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                margin-bottom: 5%;
+            }
+
+            #header-color{
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, rgba(17, 0, 167, 0.700), rgba(0, 238, 214, 0.700));
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #header-color h1{
+                color: white;
+                font-family: Agency FB;
+                text-align: center;
+                word-spacing: 4px;
+                letter-spacing: 2px;
+                font-size: 55px;
+                font-weight: 100;
+            }
+
+            /* NAVBAR */
+            #options{
+                width: 100%;
+                height: 50px;
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                border-top: 1px white solid;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                overflow: hidden;            
+            }
+
+            #options a{
+                text-decoration: none;
+                color: white;
+                font-family: Agency FB;
+                font-size: 22px;
+                margin-right: 5%;
+                word-spacing: 1px;
+                letter-spacing: 2px;
+                padding: 10px;
+                text-align: center;
+                transition: all ease 100ms;
+            }
+
+            #options a:hover{
+                background: rgba(17, 0, 167, 0.486);
+                text-align: center;
+            }
+
+            /* FAVORITE INSPIRATIONAL QUOTES SECTION STYLINGS */
+            #motto{
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                padding-top: 1%;
+            }
+
+            /* FAVORITE INSPIRATIONAL QUOTES BOXES STYLING */
+            .motto-boxes{
+                display: flex;
+                flex-direction: row;
+                width: 74%;
+                margin: auto;
+                justify-content: center;
+                align-items: center;
+                padding: 0 0 0 25px;
+                overflow: hidden;
+                padding-top: 0;
+                padding-bottom: 0;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.541);
+                border-radius: 25px;
+            }
+
+            .motto-boxes:hover{
+                animation: mottoBoxesAnim 300ms forwards;
+            }
+
+            @keyframes mottoBoxesAnim{
+                100%{
+                    transform: scale(1.06);                
+                }
+            }
+
+            #motto-img{
+                background-image: url(imgs/einstein.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 350px;
+                width: 350px;
+                border-radius: 50%;
+                margin: 0 6% 0 5%;
+            }
+
+            .inspirTexts{
+                text-align: justify;
+                font-family: Agency FB;
+                color: white;
+                background-image: url(imgs/BGA.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                width: 50%;
+                height: 370px;
+                font-size: 22px;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+                text-transform: uppercase;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 25px;
+            }
+
+            /* SECTION TITLE */
+            #motto h1{
+                text-align: center;
+                font-size: 55px;
+                font-weight: 100;
+                font-family: Agency FB;
+                width: 50%;
+                align-self: center;
+                padding-bottom: 15px;
+                border-bottom: 1px solid rgb(17, 0, 167);
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent; 
+                letter-spacing: 2px;
+                word-spacing: 4px;
+            }
+
+            /* BIBLE VERSES SECTION STYLINGS */
+            #bverses{
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                padding-top: 1%;
+            }
+
+            /* BIBLE VERSES BOXES STYLINGS */
+            .bverses-boxes{
+                width: 74%;
+                margin: auto;
+                background-image: url(imgs/BGE.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                box-shadow: 0px 10px 20px rgba(25, 1, 112, 0.541);
+                height: 350px;
+                font-family: Architects Daughter;
+                text-transform: uppercase;
+                color: white;
+                text-align: center;
+                font-size: 25px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .bverses-boxes:hover{
+                animation: bversesBoxesAnim 300ms forwards;
+            }
+
+            @keyframes bversesBoxesAnim{
+                100%{
+                    transform: scale(1.1);          
+                }
+            }
+
+            /* SECTION TITLE */
+            #bverses h1{
+                text-align: center;
+                font-family: Agency FB;
+                font-size: 55px;
+                font-weight: 100;
+                width: 50%;
+                align-self: center;
+                padding-bottom: 15px;
+                border-bottom: 1px solid rgb(17, 0, 167);
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent; 
+                letter-spacing: 2px;
+                word-spacing: 4px;
+            }
+
+            #bversesTexts{
+                background: rgba(0, 0, 0, 0.459);
+                width: 90%;
+                height: 90%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* MOTIVATIONAL VIDEOS SECTION STYLINGS */
+            #motivvids{
+                display: flex;
+                flex-direction: column;
+                padding-top: 1%;
+            }
+
+            /* SECTION TITLE */
+            #motivvids-title{
+                text-align: center;
+                font-family: Agency FB;
+                font-size: 55px;
+                font-weight: 100;
+                width: 50%;
+                padding-bottom: 15px;
+                border-bottom: 1px solid rgb(17, 0, 167);
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent; 
+                letter-spacing: 2px;
+                word-spacing: 4px;    
+                align-self: center;
+            }
+
+            /* MOTIVATIONAL VIDEOS BOXES STYLING */
+            #motivvids-box1{
+                margin-top: 15px;
+                margin-bottom: 2%;
+                align-items: center;
+                display: flex;
+                margin-left: 20%;
+                border-radius: 45px;
+                width: 80%; 
+                overflow:hidden;
+                height: 335px;
+                border-top-left-radius: 0;      
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;   
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+            }
+
+            #video-description{
+                height: 150px;
+                width: 400px;
+                font-family: sans-serif;
+                color: white;
+                display: flex;
+                align-items: center;
+                margin: 0 1%;
+            }
+
+            #motivvids-box2{
+                margin-top: 15px;
+                margin-bottom: 2%;
+                align-items: center;
+                display: flex;
+                flex-direction: row-reverse;
+                border-radius: 45px;
+                width: 80%; 
+                overflow:hidden;
+                height: 335px;
+                border-top-left-radius: 0;      
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 0;   
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+            }
+
+            #motivvids-box3{
+                margin-top: 15px;
+                margin-bottom: 2%;
+                align-items: center;
+                display: flex;
+                margin-left: 20%;
+                border-radius: 45px;
+                width: 80%; 
+                overflow:hidden;
+                height: 335px;
+                border-top-left-radius: 0;      
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;   
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+            }
+
+            #motivvids-box4{
+                margin-top: 15px;
+                margin-bottom: 2%;
+                align-items: center;
+                display: flex;
+                flex-direction: row-reverse;
+                border-radius: 45px;
+                width: 80%; 
+                overflow:hidden;
+                height: 335px;
+                border-top-left-radius: 0;      
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 0;   
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+            }
+
+            #motivvids-box5{
+                margin-top: 15px;
+                align-items: center;
+                display: flex;
+                margin-left: 20%;
+                border-radius: 45px;
+                width: 80%; 
+                overflow:hidden;
+                height: 335px;
+                border-top-left-radius: 0;      
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;   
+                background: linear-gradient(90deg, rgb(17, 0, 167), rgb(0, 238, 214));
+            }
+
+            footer{
+                width: 100%;
+                height: 50px;
+                background: rgb(17, 0, 167);
+                color: white;
+                font-family: Agency FB;
+                font-size: 21px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                letter-spacing: 1px;
+                word-spacing: 2px;
+            }
+
+            @media only screen and (max-width: 900px){
+                #header-color h1{
+                    font-size: 35px;
+                    font-weight: 100;
+                }
+                header{
+                    margin-bottom: 10%;
+                    height: 150px;
+                }
+                #options a{
+                    margin-right: 2%;
+                    word-spacing: 1px;
+                    letter-spacing: 2px;
+                    padding: 10px;
+                    font-size: 17px;
+                }
+                .motto-boxes{
+                    width: 80%;
+                    margin: auto;
+                    padding: 0 0 0 25px;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+                #motto-img{
+                    height: 225px;
+                    width: 225px;
+                }
+                .inspirTexts{
+                    height: 260px;
+                    font-size: 17px;
+                }
+                #motto{
+                    gap: 10px;
+                }
+                #motto h1{
+                    padding-bottom: 10px;
+                    font-size: 35px;
+                }
+
+                #bverses{
+                    gap: 10px;
+                }
+                .bverses-boxes{
+                    width: 80%;
+                    height: 250px;
+                    font-size: 20px;
+                    display: flex;
+                }
+                #bverses h1{
+                    padding-bottom: 10px;
+                    font-size: 35px;
+                }
+
+                #motivvids-title{
+                    padding-bottom: 10px;
+                    font-size: 35px;
+                }
+                #motivvids-box1{
+                    margin-top: 10px;
+                    margin-left: 10%;
+                    width: 90%; 
+                }
+                #video-description{
+                    font-size: 12px;
+                }
+                #motivvids-box2{
+                    margin-top: 10px;
+                    margin-right: 10%;
+                    width: 90%; 
+                }
+                #motivvids-box3{
+                    margin-top: 10px;
+                    margin-left: 10%;
+                    width: 90%; 
+                }
+                #motivvids-box4{
+                    margin-top: 10px;
+                    margin-right: 10%;
+                    width: 90%; 
+                }
+                #motivvids-box5{
+                    margin-top: 10px;
+                    margin-left: 10%;
+                    width: 90%; 
+                }
+            }
+
+            @media only screen and (max-width: 899px) {
+                #side-bar {
+                    width: 45px;
+                    height: 45px;
+                    padding: 0;
+                    right: 15px;
+                    border-radius: 5px;
+                }
+
+                #side-bar li{
+                    transform: scale(0.6);
+                    margin: 0;
+                }
+
+                #side-bar:hover {
+                    height: 500px;
+                    background: linear-gradient(360deg, rgb(17, 0, 167), rgb(0, 238, 214));
+                }
+
+                #side-bar #homepageIcon:hover {
+                    transform: scale(0.6);
+                }
+
+                #side-bar li:hover {
+                    background: rgba(9, 0, 94, 0.589);
+                }
+
+                #tooltipText {
+                    width: 150px;
+                    right: 130%;
+                    font-size: 25px;
+                }
+            }
+
+            @media only screen and (max-width: 683px){
+                #motto h1{
+                    width: 60%;
+                    padding-bottom: 5px;
+                    font-size: 35px;
+                }
+
+                #bverses h1{
+                    width: 35%;
+                    padding-bottom: 5px;
+                    font-size: 35px;
+                }
+
+                #motivvids-title{
+                    width: 60%;
+                    padding-bottom: 5px;
+                    font-size: 35px;
+                }
+            }
+
+            @media only screen and (max-width: 580px){
+                header{
+                    margin-bottom: 15%;
+                    height: 150px;
+                }
+                #options a{
+                    margin-right: 2%;
+                    word-spacing: 1px;
+                    letter-spacing: 2px;
+                    padding: 10px;
+                    font-size: 15px;
+                }
+                .motto-boxes{
+                    flex-direction: column;
+                    width: 80%;
+                    padding: 15px 0 0 0;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+                #motto-img{
+                    height: 150px;
+                    width: 150px;
+                    margin: 14px 0;
+                }
+                .inspirTexts{
+                    height: 120px;
+                    width: 100%;
+                    font-size: 15px;
+                    text-align: center;
+                    justify-content: center;
+                }
+                #motto{
+                    gap: 10px;
+                }
+                #motto h1{
+                    padding-bottom: 5px;
+                    font-size: 25px;
+                }
+
+                .bverses-boxes{
+                    width: 80%;
+                    height: 225px;
+                    font-size: 15px;
+                    display: flex;
+                }
+                #bverses h1{
+                    padding-bottom: 5px;
+                    font-size: 25px;
+                }
+
+                #motivvids-title{
+                    padding-bottom: 5px;
+                    font-size: 25px;
+                }
+                #motivvids-box1{
+                    margin-top: 10px;
+                    margin-left: 0;
+                    width: 100%; 
+                    flex-direction: column;
+                    border-radius: 0%;
+                    padding: 1%;
+                }
+                #video-description{
+                    font-size: 0;
+                    width: 0;
+                    text-align: center;
+                    height: 0;
+                    color: transparent;
+                }
+                #motivvids-box2{
+                    margin-top: 10px;
+                    margin-left: 0;
+                    width: 100%; 
+                    flex-direction: column;
+                    border-radius: 0%;
+                    padding: 1%;
+                }
+                #motivvids-box3{
+                    margin-top: 10px;
+                    margin-left: 0;
+                    width: 100%; 
+                    flex-direction: column;
+                    border-radius: 0%;
+                    padding: 1%;
+                }
+                #motivvids-box4{
+                    margin-top: 10px;
+                    margin-left: 0;
+                    width: 100%; 
+                    flex-direction: column;
+                    border-radius: 0%;
+                    padding: 1%;
+                }
+                #motivvids-box5{
+                    margin-top: 10px;
+                    margin-left: 0;
+                    width: 100%; 
+                    flex-direction: column;
+                    border-radius: 0%;
+                    padding: 1%;
+                }
+            }
+
+        </style>
+    </head>
+
+    <!--MAIN BODY CONTENT OF THE WEBPAGE-->    
+    <body id="body">
+        <!--SIDE NAV BAR-->
+        <nav id="side-bar">
+            <ul>
+                <li style="background: rgba(255, 255, 255, 0.795);">
+                    <img src="imgs/listicon.png" alt="">
+                </li>
+                <li id="homepageIcon">
+                    <span id="tooltipText">RETURN TO MAIN MENU</span>
+                    <a href="0 MAIN LANDING PAGE.html"><img src="imgs/HOMEPAGEICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">PERSONAL WEB BLOG</span>
+                    <a href="01 PERSONAL BLOG WEBPAGE.html"><img src="imgs/BLOGICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">CLASS SCHEDULE</span>
+                    <a href="02 CLASS SCHEDULE WEBPAGE.HTML"><img src="imgs/SCHEDICON.png" alt=""></a>
+                </li>
+                <li id="currentPage">
+                    <span id="tooltipText">INSPIRATIONAL QUOTES</span>
+                    <a href="03 INSPIRATIONAL QUOTES WEBPAGE.html"><img src="imgs/QUOTESICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">FAVORITE APPS</span>
+                    <a href="04 FAVORITE APPLICATIONS WEBPAGE.html"><img src="imgs/APPICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">FAVORITE SONGS</span>
+                    <a href="05 FAVORITE SONGS WEBPAGE.HTML"><img src="imgs/MUSICICON.png" alt=""></a>
+                </li>
+                <li>
+                    <span id="tooltipText">PHOTO GALLERY</span>
+                    <a href="06 MY PHOTO GALLERY.html"><img src="imgs/GALLERYICON.png" alt=""></a>
+                </li>
+                
+            </ul>
+        </nav> 
+
+        <!--BUTTON TO GO BACK TO TOP-->
+        <div id="elevator">
+            <p>RETURN TO TOP</p>
+            <a href="#body">
+                <img src="imgs/arrow.png" alt="">
+            </a>
+        </div>
+
+        <!--INCLUDES THE WEBPAGE TITLE-->
+        <header>
+            <div id="header-color">
+                <h1>INSPIRATONAL QUOTES</h1>
+            </div>
+            <!--NAVBAR-->
+            <nav id="options">
+                <a href="#motto">PERSONAL FAVORITE MOTTOS</a>
+                <a href="#bverses">BIBLE VERSES</a>
+                <a href="#motivvids">FAVORITE MOTIVATIONAL VIDEOS</a>
+            </nav>
+        </header>
+
+        <!--PERSONAL FAVORITE MOTTOS SECTION-->
+        <section id="motto">
+            <!--SECTION TITLE-->
+            <h1>PERSONAL FAVORITE MOTTOS</h1>
+            <!--BOXES PER QUOTES-->
+            <div class="motto-boxes">
+                <div id="motto-img" title="Albert Einstein picture"></div>
+                <div class="inspirTexts">
+                    <p style="margin-bottom: 5%;">Life is like riding a bike, you must keep moving in order to maintain balance</p>
+                    <p>- Albert Einstein</p>
+                </div>    
+            </div>
+
+            <br><br>
+
+            <div class="motto-boxes">
+                <div id="motto-img" style="background-image: url(imgs/vincent.jpg)" title="Vincent Van Gogh picture"></div>
+                <div class="inspirTexts" style="background-image: url(imgs/BG1.jpg); background-position: bottom;">
+                    <p style="margin-bottom: 5%;">If you hear a voice within you say "you cannot paint," then by all means paint and that voice will silenced</p>
+                    <p>- Vincent Van Gogh</p>
+                </div>    
+            </div>
+
+            <br><br>
+
+            <div class="motto-boxes">
+                <div id="motto-img" style="background-image: url(imgs/pena.png)" title="Steve Jobs picture"></div>
+                <div class="inspirTexts" style="background-image: url(imgs/BGC.jpg)">
+                    <p style="margin-bottom: 5%;">You will never achieve anything greater than your highest aspiration.</p>
+                    <p>- Dan Pena</p>
+                </div>    
+            </div>
+
+            <br><br>
+
+            <div class="motto-boxes">
+                <div id="motto-img" style="background-image: url(imgs/twain.jpg)" title="Mark Twain picture"></div>
+                <div class="inspirTexts" style="background-image: url(imgs/BG2.jpg); background-position: top;">
+                    <p style="margin-bottom: 5%;">The two most important days in your life are the day you are born and the day you find out why</p>
+                    <p>- Mark Twain</p>
+                </div>    
+            </div>
+
+            <br><br>
+
+            <div class="motto-boxes">
+                <div id="motto-img" title="Albert Einstein picture"></div>
+                <div class="inspirTexts" style="background-image: url(imgs/BGD.jpg); background-position: center;">
+                    <p style="margin-bottom: 5%;">Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world</p>
+                    <p>- Albert Einstein</p>
+                </div>    
+            </div>
+        </section>
+        <br>
+
+        <!--BIBLE VERSES SECTION-->
+        <section id="bverses">
+            <!--SECTION TITLE-->
+            <h1>BIBLE VERSES</h1>
+            <!--BOXES PER BIBLE VERSE-->
+            <div class="bverses-boxes">
+                <div id="bversesTexts">
+                    <p style="padding-bottom: 2%; border-bottom: solid 1px white;">SO DO NOT FEAR, FOR I AM WITH YOU; DO NOT BE DISMAYED, FOR I AM YOUR GOD. I WILL STRENGTHEN YOU AND HELP YOU; I WILL UPHOLD YOU WITH MY RIGHTEOUS RIGHT HAND.</p>
+                    <p style="padding-top: 2%;">ISAIAH 41:10 (NIV)</p>
+                </div>
+            </div>
+
+            <div class="bverses-boxes" style="background-image:url(imgs/BGF.jpg)">
+                <div id="bversesTexts">
+                    <p style="padding-bottom: 2%; border-bottom: solid 1px white;">Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.</p>
+                    <p style="padding-top: 2%;">Philippians 4:6–7 (NIV)</p>
+                </div>
+            </div>
+
+            <div class="bverses-boxes" style="background-image:url(imgs/BGG.jpg);">
+                <div id="bversesTexts">
+                    <p style="padding-bottom: 2%; border-bottom: solid 1px white;">Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.</p>
+                    <p style="padding-top: 2%;">Joshua 1:9</p>
+                </div>
+            </div>
+
+            <div class="bverses-boxes" style="background-image:url(imgs/BGH.jpg)">
+                <div id="bversesTexts">
+                    <p style="padding-bottom: 2%; border-bottom: solid 1px white;">May the God of hope fill you with all joy and peace as you trust in Him, so that you may overflow with hope by the power of the Holy Spirit.</p>
+                    <p style="padding-top: 2%;">Romans 15:13 (NIV)</p>
+                </div>
+            </div>
+
+            <div class="bverses-boxes" style="background-image: url(imgs/BGJ.JPG)">
+                <div id="bversesTexts">
+                    <p style="padding-bottom: 2%; border-bottom: solid 1px white;">Humble yourselves, therefore, under the mighty hand of God so that at the proper time He may exalt you, casting all your anxieties on Him, because He cares for you.</p>
+                    <p style="padding-top: 2%;">1 Peter 5:6–7</p>
+                </div>
+            </div>
+        </section>
+        <br>
+
+        <!--MOTIVATIONAL VIDEOS SECTION-->
+        <section id="motivvids">
+            <!--SECTION TITLE-->
+            <h1 id="motivvids-title">FAVORITE MOTIVATIONAL VIDEOS</h1>
+            <!--BOXES PER MOTIVATIONAL VIDEO-->
+            <div id="motivvids-box1">
+                <iframe width="853" 
+                    height="480" 
+                    src="https://www.youtube.com/embed/N6zqatiur3A" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+                <div id="video-description">
+                    <h1>BILLIONAIRE DAN PENA'S ULTIMATE ADVICE FOR STUDENTS & YOUNG PEOPLE - <span style="font-size: 40px;">HOW TO SUCCEED IN LIFE</span></h1>
+                </div>
+            </div>
+
+            <div id="motivvids-box2">
+                <iframe width="853" 
+                    height="480" 
+                    src="https://www.youtube.com/embed/AL08YZCYShc" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+                <div id="video-description">
+                    <h1><span style="font-size: 40px;">STUDY LESS STUDY SMART</span> - MOTIVATIONAL VIDEO ON HOW TO STUDY EFFECTIVELY</h1>
+                </div>
+            </div>
+
+            <div id="motivvids-box3">
+                <iframe width="853" 
+                    height="480" 
+                    src="https://www.youtube.com/embed/z3FA2kALScU" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+                <div id="video-description">
+                    <h1><span style="font-size: 40px;">STOP WASTING TIME</span> - PART 1|MOTIVATIONAL VIDEO FOR SUCCESS & STUDYING (FT. COACH HITE)</h1>
+                </div>
+            </div>
+
+            <div id="motivvids-box4">
+                <iframe width="853" 
+                    height="480" 
+                    src="https://www.youtube.com/embed/T8f1fKsiLvE" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+                <div id="video-description">
+                    <h1><span style="font-size: 40px;">WAKING UP AT 4:00</span> AM EVERY DAY WILL CHANGE YOUR LIFE</h1>
+                </div>
+            </div>
+
+            <div id="motivvids-box5">
+                <iframe width="853" 
+                    height="480" 
+                    src="https://www.youtube.com/embed/mH7yqXcifHc" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+                <div id="video-description">
+                    <h1><span style="font-size: 40px;">THE FIVE HABITS OF SUCCESS</span> - AMAZING MOTIVATIONAL VIDEO FOR STUDENTS, SUCCESS & STUDYING</h1>
+                </div>
+            </div>
+        </section>
+        <br>
+
+        <!--Bootstrap Link-->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <!--APlayer Jquery Link-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+    </body>
+
+    <footer>
+        <p style="font-weight: bold;">Activity 4 in Integrative in Programming and Technologies</p>
+        <div style="display: flex; flex-direction: row; width: 50%; justify-content: center;">
+            <p style="padding-right: 5%">Harvy Jones Pontillas</p>
+            <p>DICT 2-2</p>
+        </div>
+    </footer>
+</html>
